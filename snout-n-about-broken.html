@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snout n About - Pet Supply & Services</title>
+  <style>
+    /* INTENTIONALLY BAD UX + BROKEN FUNCTIONALITY */
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #444;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.3;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:hover {
+      color: #ff0000;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 20px;
+      background: #f9f9f9;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .search-box {
+      font-size: 10px;
+    }
+
+    .search-box input[type="text"] {
+      width: 120px;
+      padding: 3px;
+      font-size: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .search-box button {
+      font-size: 10px;
+      padding: 3px 8px;
+      border: 1px solid #999;
+      background: #eee;
+    }
+
+    .utility-nav {
+      font-size: 11px;
+    }
+
+    .utility-nav a {
+      margin-left: 10px;
+    }
+
+    .cart-count {
+      background: #ff0000;
+      color: white;
+      border-radius: 10px;
+      padding: 2px 6px;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .nav a {
+      text-transform: uppercase;
+      margin-right: 15px;
+      display: inline-block;
+      padding: 5px 0;
+    }
+
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Mega Menu - requires precise hovering */
+    .mega-menu {
+      display: none;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 750px;
+      font-size: 11px;
+      z-index: 999;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-item:hover .mega-menu {
+      display: block;
+    }
+
+    /* Menu disappears if you move mouse slightly wrong */
+    .mega-menu:hover {
+      display: block;
+    }
+
+    .mega-column {
+      float: left;
+      width: 30%;
+      margin-right: 10px;
+    }
+
+    .mega-menu h4 {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .mega-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mega-menu li {
+      margin-bottom: 5px;
+    }
+
+    .brand-scroll {
+      max-height: 120px;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      padding: 5px;
+      font-size: 10px;
+    }
+
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    /* HERO */
+    .hero {
+      border-bottom: 1px solid #ddd;
+      padding: 30px 20px;
+      text-align: center;
+      background: #f5f5f5;
+    }
+
+    .hero-carousel {
+      width: 100%;
+      height: 180px;
+      background: #ccc;
+      margin-bottom: 20px;
+      line-height: 180px;
+      font-size: 22px;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      margin: 10px 0 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border-radius: 3px;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+    }
+
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+
+    /* Make some buttons look clickable but do nothing */
+    .btn-fake {
+      padding: 10px 20px;
+      background: #cccccc;
+      color: #888;
+      border-radius: 3px;
+      font-size: 13px;
+      border: none;
+      cursor: not-allowed;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .breadcrumbs {
+      font-size: 10px;
+      color: #bbb;
+      margin-bottom: 15px;
+    }
+
+    /* PRODUCT GRID */
+    .products-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .filters {
+      width: 200px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .filters h3 {
+      margin-top: 0;
+      font-size: 14px;
+    }
+
+    .filter-group {
+      margin-bottom: 15px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: center;
+      background: white;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 150px;
+      background: #eee;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    /* PRODUCT DETAIL */
+    .product-detail {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .product-detail-image {
+      width: 300px;
+      height: 300px;
+      background: #eee;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .product-detail-info {
+      flex: 1;
+    }
+
+    .product-detail-info h1 {
+      font-size: 28px;
+      margin: 0 0 10px 0;
+    }
+
+    .product-detail-info .price {
+      font-size: 24px;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .product-meta {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .quantity-selector {
+      margin: 20px 0;
+    }
+
+    .quantity-selector label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .quantity-selector input {
+      width: 60px;
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    /* CART */
+    .cart-items {
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      background: #eee;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #999;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .cart-item-quantity {
+      width: 50px;
+    }
+
+    .cart-item-total {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .cart-summary {
+      border: 1px solid #ddd;
+      padding: 20px;
+      background: #f9f9f9;
+      max-width: 400px;
+      margin-left: auto;
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .cart-summary-row.total {
+      font-size: 18px;
+      font-weight: bold;
+      border-top: 2px solid #333;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* FORMS */
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+    .form-section h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .form-row {
+      margin-bottom: 15px;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-row.half {
+      display: inline-block;
+      width: 48%;
+      margin-right: 2%;
+    }
+
+    .form-note {
+      font-size: 11px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #f5c6cb;
+      font-size: 12px;
+    }
+
+    /* LOADING SPINNER - shows but doesn't actually load */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      border-top: 1px solid #ccc;
+      font-size: 10px;
+      text-align: center;
+      color: #999;
+      background: #f5f5f5;
+    }
+
+    .footer a {
+      margin: 0 5px;
+      font-size: 10px;
+      color: #999;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .modal-close {
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    /* UTILITIES */
+    .hidden {
+      display: none !important;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .mega-menu {
+        width: 100%;
+        left: -20px;
+      }
+      
+      .products-container {
+        flex-direction: column;
+      }
+      
+      .filters {
+        width: 100%;
+      }
+      
+      .product-detail {
+        flex-direction: column;
+      }
+      
+      .product-detail-image {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo" onclick="showPage('home')">🐾 Snout n About</div>
+      
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="brokenSearch()">Go</button>
+      </div>
+      
+      <div class="utility-nav">
+        <a href="#" onclick="showPage('locations')">Store Locator</a>
+        <a href="#" onclick="brokenLogin()">My Account</a>
+        <a href="#" onclick="showPage('cart')">Cart <span class="cart-count" id="cartCount">0</span></a>
+      </div>
+    </div>
+
+    <div class="nav">
+      <a href="#" onclick="showPage('home')">HOME</a>
+      
+      <span class="nav-item">
+        <a href="#">SHOP</a>
+        <div class="mega-menu clearfix">
+          <div class="mega-column">
+            <h4>By Pet Type</h4>
+            <ul>
+              <li><a href="#" onclick="slowLoad('dogs')">Dogs</a></li>
+              <li><a href="#" onclick="slowLoad('cats')">Cats</a></li>
+              <li><a href="#" onclick="slowLoad('birds')">Birds</a></li>
+              <li><a href="#" onclick="slowLoad('fish')">Fish & Aquatics</a></li>
+              <li><a href="#" onclick="slowLoad('small-pets')">Small Pets</a></li>
+              <li><a href="#" onclick="slowLoad('reptiles')">Reptiles</a></li>
+            </ul>
+          </div>
+          
+          <div class="mega-column">
+            <h4>By Product Type</h4>
+            <ul>
+              <li><a href="#" onclick="slowLoad('food')">Food & Nutrition</a></li>
+              <li><a href="#" onclick="slowLoad('treats')">Treats & Chews</a></li>
+              <li><a href="#" onclick="slowLoad('toys')">Toys</a></li>
+              <li><a href="#" onclick="slowLoad('health')">Health & Wellness</a></li>
+              <li><a href="#" onclick="slowLoad('grooming')">Grooming Supplies</a></li>
+              <li><a href="#" onclick="slowLoad('furniture')">Beds & Furniture</a></li>
+            </ul>
+          </div>
+          
+          <div class="mega-column">
+            <h4>By Brand</h4>
+            <div class="brand-scroll">
+              <ul>
+                <li><a href="#" onclick="brokenLink()">Blue Buffalo</a></li>
+                <li><a href="#" onclick="brokenLink()">Hill's Science Diet</a></li>
+                <li><a href="#" onclick="brokenLink()">KONG</a></li>
+                <li><a href="#" onclick="brokenLink()">Purina</a></li>
+                <li><a href="#" onclick="brokenLink()">Royal Canin</a></li>
+                <li><a href="#" onclick="brokenLink()">...(25+ more)</a></li>
+              </ul>
+            </div>
+            <br>
+            <h4>Special</h4>
+            <ul>
+              <li><a href="#" onclick="slowLoad('sale')">Sale Items!</a></li>
+              <li><a href="#" onclick="brokenLink()">New Arrivals</a></li>
+            </ul>
+          </div>
+        </div>
+      </span>
+      
+      <a href="#" onclick="showPage('services')">SERVICES</a>
+      <a href="#" onclick="showPage('about')">ABOUT US</a>
+      <a href="#" onclick="showPage('contact')">CONTACT</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <div id="mainContent">
+    <!-- Content loads here -->
+  </div>
+
+  <!-- LOADING INDICATOR -->
+  <div id="loadingIndicator" class="loading">
+    <p>Loading... Please wait...</p>
+    <p style="font-size: 11px; color: #999;">(This is taking longer than usual)</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>
+      <a href="#" onclick="showPage('about')">About Us</a> | 
+      <a href="#" onclick="showPage('contact')">Contact</a> | 
+      <a href="#" onclick="brokenLink()">Careers</a> | 
+      <a href="#" onclick="showPage('locations')">Store Locations</a> | 
+      <a href="#" onclick="brokenLink()">Return Policy</a> | 
+      <a href="#" onclick="brokenLink()">Shipping Info</a> | 
+      <a href="#" onclick="brokenLink()">Privacy Policy</a> | 
+      <a href="#" onclick="brokenLink()">Terms of Service</a>
+    </p>
+    <p>&copy; 2024 Snout n About. All rights reserved.</p>
+  </div>
+
+  <!-- ERROR MODAL -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Error</h2>
+        <span class="modal-close" onclick="closeModal('errorModal')">&times;</span>
+      </div>
+      <div id="errorMessage"></div>
+    </div>
+  </div>
+
+  <script>
+    // SIMULATED DATABASE (limited)
+    let cart = [];
+    let cartFailCount = 0;
+    let loadAttempts = 0;
+
+    const products = [
+      // Limited products - most "out of stock"
+      { id: 1, name: 'Premium Puppy Food - Chicken & Rice', category: 'dogs', type: 'food', price: 45.99, stock: 'Out of Stock', description: 'Complete nutrition for growing puppies.' },
+      { id: 2, name: 'Adult Dog Food - Beef Formula', category: 'dogs', type: 'food', price: 52.99, stock: 'In Stock', description: 'High-protein formula for adult dogs.' },
+      { id: 3, name: 'Senior Dog Food - Easy Digest', category: 'dogs', type: 'food', price: 48.99, stock: 'Out of Stock', description: 'Specially formulated for senior dogs.' },
+      { id: 4, name: 'Training Treats - Soft & Chewy', category: 'dogs', type: 'treats', price: 12.99, stock: 'In Stock', description: 'Perfect size for training.' },
+      { id: 5, name: 'Dental Chews for Dogs', category: 'dogs', type: 'treats', price: 18.99, stock: 'Out of Stock', description: 'Cleans teeth while satisfying chewing.' },
+      { id: 6, name: 'KONG Classic Dog Toy - Medium', category: 'dogs', type: 'toys', price: 14.99, stock: 'Discontinued', description: 'Durable rubber toy.' },
+      { id: 7, name: 'Interactive Puzzle Toy', category: 'dogs', type: 'toys', price: 24.99, stock: 'In Stock', description: 'Mental stimulation for smart dogs.' },
+      { id: 8, name: 'Kitten Food - Chicken Paté', category: 'cats', type: 'food', price: 32.99, stock: 'Out of Stock', description: 'Wet food for kittens.' },
+      { id: 9, name: 'Adult Cat Food - Dry Mix', category: 'cats', type: 'food', price: 38.99, stock: 'In Stock', description: 'Complete balanced nutrition.' },
+      { id: 10, name: 'Senior Cat Food - Prescription', category: 'cats', type: 'food', price: 56.99, stock: 'Requires Vet Approval', description: 'Veterinary-recommended formula.' },
+      { id: 11, name: 'Clumping Clay Litter - 20lb', category: 'cats', type: 'litter', price: 15.99, stock: 'In Stock', description: 'Superior odor control.' },
+      { id: 12, name: 'Natural Pine Litter - Eco', category: 'cats', type: 'litter', price: 22.99, stock: 'Out of Stock', description: 'Environmentally friendly.' },
+    ];
+
+    // INITIALIZE
+    function init() {
+      updateCartCount();
+      showPage('home');
+      startBrokenCarousel();
+      
+      // Random page errors
+      setTimeout(() => {
+        if (Math.random() > 0.7) {
+          showError('Your session may have expired. Please refresh the page.');
+        }
+      }, 30000);
+    }
+
+    // BROKEN CAROUSEL - sometimes doesn't rotate, sometimes rotates too fast
+    function startBrokenCarousel() {
+      const slides = ["🐕 Special: 20% Off Dog Food!", "🐈 New: Premium Cat Litter", "🐦 Sale Ends Soon!", "Loading..."];
+      let index = 0;
+      let speed = Math.random() > 0.5 ? 1000 : 5000; // Either too fast or too slow
+      
+      setInterval(() => {
+        const el = document.getElementById('heroCarousel');
+        if (el && Math.random() > 0.3) { // Sometimes just doesn't update
+          index = (index + 1) % slides.length;
+          el.textContent = slides[index];
+        }
+      }, speed);
+    }
+
+    // NAVIGATION WITH DELAYS
+    function showPage(page) {
+      showLoading();
+      
+      // Simulate slow load
+      setTimeout(() => {
+        const content = document.getElementById('mainContent');
+        
+        switch(page) {
+          case 'home':
+            content.innerHTML = getHomePage();
+            break;
+          case 'cart':
+            content.innerHTML = getCartPage();
+            break;
+          case 'services':
+            content.innerHTML = getServicesPage();
+            break;
+          case 'about':
+            content.innerHTML = getAboutPage();
+            break;
+          case 'contact':
+            content.innerHTML = getContactPage();
+            break;
+          case 'locations':
+            content.innerHTML = getLocationsPage();
+            break;
+          default:
+            content.innerHTML = getHomePage();
+        }
+        
+        hideLoading();
+        window.scrollTo(0, 0);
+      }, Math.random() * 2000 + 1000); // 1-3 second delay
+    }
+
+    function slowLoad(category) {
+      loadAttempts++;
+      
+      // Sometimes just fails
+      if (Math.random() > 0.6) {
+        showError('Unable to load products at this time. Please try again later. (Error Code: ' + Math.floor(Math.random() * 9999) + ')');
+        return;
+      }
+      
+      showLoading();
+      setTimeout(() => {
+        showProducts(category);
+        hideLoading();
+      }, Math.random() * 3000 + 2000); // 2-5 second delay
+    }
+
+    function showProducts(category) {
+      const content = document.getElementById('mainContent');
+      
+      const filtered = category === 'all' 
+        ? products 
+        : products.filter(p => p.category === category);
+      
+      content.innerHTML = `
+        <div class="content">
+          <p class="breadcrumbs">Home > Shop > ${category}</p>
+          <h1 class="page-title">Products ${category ? '- ' + category : ''}</h1>
+          
+          <div class="products-container">
+            <div class="filters">
+              <h3>Filters</h3>
+              <p style="font-size: 11px; color: #999;">Filters temporarily unavailable</p>
+              <div class="filter-group">
+                <label><input type="checkbox" disabled> Dogs</label>
+                <label><input type="checkbox" disabled> Cats</label>
+                <label><input type="checkbox" disabled> Birds</label>
+              </div>
+              <button class="btn-fake" disabled>Apply Filters</button>
+            </div>
+            
+            <div>
+              <div style="margin-bottom: 15px; font-size: 12px;">
+                <span>Showing ${filtered.length} products</span>
+                <select style="float: right; font-size: 12px; padding: 3px;" disabled>
+                  <option>Sort: Default</option>
+                  <option>Price: Low to High</option>
+                  <option>Price: High to Low</option>
+                </select>
+              </div>
+              
+              <div class="product-grid">
+                ${filtered.map(p => `
+                  <div class="product-card" onclick="showProductDetail(${p.id})">
+                    <div class="product-image">${getCategoryEmoji(p.category)}</div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">$${p.price}</div>
+                    <div style="font-size: 11px; color: ${p.stock === 'In Stock' ? 'green' : 'red'};">${p.stock}</div>
+                    ${p.stock === 'In Stock' 
+                      ? `<button class="btn" style="width: 100%; margin-top: 10px;" onclick="event.stopPropagation(); unreliableAddToCart(${p.id})">Add to Cart</button>`
+                      : `<button class="btn-fake" style="width: 100%; margin-top: 10px;" disabled>Unavailable</button>`
+                    }
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function showProductDetail(productId) {
+      showLoading();
+      
+      setTimeout(() => {
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+          showError('Product not found. It may have been discontinued.');
+          hideLoading();
+          return;
+        }
+        
+        const content = document.getElementById('mainContent');
+        content.innerHTML = `
+          <div class="content">
+            <p class="breadcrumbs">Home > Shop > ${product.category} > ${product.name}</p>
+            
+            <div class="product-detail">
+              <div class="product-detail-image">
+                <div style="text-align: center;">
+                  ${getCategoryEmoji(product.category)}<br>
+                  <span style="font-size: 10px;">Image failed to load</span>
+                </div>
+              </div>
+              <div class="product-detail-info">
+                <h1>${product.name}</h1>
+                <div class="price">$${product.price}</div>
+                <div class="product-meta">
+                  Item #: ${product.id} | SKU: ERROR | 
+                  Stock: <span style="color: ${product.stock === 'In Stock' ? 'green' : 'red'};">${product.stock}</span>
+                </div>
+                
+                <p>${product.description}</p>
+                
+                ${product.stock === 'In Stock' ? `
+                  <div class="quantity-selector">
+                    <label>Quantity:</label>
+                    <input type="number" id="qty-${product.id}" value="1" min="1" max="10">
+                  </div>
+                  
+                  <button class="btn" style="padding: 15px 40px; font-size: 16px;" onclick="unreliableAddToCart(${product.id}, document.getElementById('qty-${product.id}').value)">
+                    Add to Cart
+                  </button>
+                ` : `
+                  <p style="color: red; font-weight: bold;">This item is currently unavailable.</p>
+                  <button class="btn-fake" disabled>Out of Stock</button>
+                `}
+                
+                <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; margin-left: 10px;" onclick="slowLoad('${product.category}')">
+                  Continue Shopping
+                </button>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd;">
+                  <h3>Product Reviews</h3>
+                  <p style="font-size: 11px; color: #999;">Reviews are temporarily unavailable. Please check back later.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        hideLoading();
+        window.scrollTo(0, 0);
+      }, Math.random() * 2000 + 1500);
+    }
+
+    function getHomePage() {
+      return `
+        <div class="hero">
+          <div class="hero-carousel" id="heroCarousel">Loading...</div>
+          <h1>WELCOME TO Snout n About</h1>
+          <p>Your One-Stop Shop for All Pet Needs</p>
+          <button class="btn" onclick="slowLoad('all')">Shop Now</button>
+        </div>
+
+        <div class="content">
+          <h2>Featured Categories</h2>
+          <div class="product-grid">
+            <div class="product-card" onclick="slowLoad('dogs')">
+              <div class="product-image">🐕</div>
+              <div class="product-name">Dogs</div>
+              <p>Everything for your canine companion</p>
+            </div>
+            <div class="product-card" onclick="slowLoad('cats')">
+              <div class="product-image">🐈</div>
+              <div class="product-name">Cats</div>
+              <p>Premium products for felines</p>
+            </div>
+            <div class="product-card" onclick="brokenLink()">
+              <div class="product-image">🐦</div>
+              <div class="product-name">Birds</div>
+              <p>Cages, food, and toys</p>
+            </div>
+            <div class="product-card" onclick="brokenLink()">
+              <div class="product-image">🐠</div>
+              <div class="product-name">Fish</div>
+              <p>Aquarium supplies</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd;">
+            <h2>About Snout n About</h2>
+            <p>We are a family-owned pet supply store serving the community since 1995. We pride ourselves on offering the widest selection of products for dogs, cats, birds, fish, small pets, and reptiles.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCartPage() {
+      if (cart.length === 0) {
+        return `
+          <div class="content text-center">
+            <h1 class="page-title">Shopping Cart</h1>
+            <p style="margin: 40px 0;">Your cart is empty</p>
+            <p style="font-size: 11px; color: #999;">Items may have been removed due to session timeout.</p>
+            <button class="btn" onclick="slowLoad('all')">Start Shopping</button>
+          </div>
+        `;
+      }
+      
+      // Random cart issues
+      const cartGlitch = Math.random() > 0.5;
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const shipping = subtotal > 50 ? 0 : 9.99;
+      const tax = subtotal * 0.08;
+      const total = subtotal + shipping + tax + (cartGlitch ? Math.random() * 5 : 0); // Random price fluctuation
+      
+      return `
+        <div class="content">
+          <h1 class="page-title">Shopping Cart</h1>
+          ${cartGlitch ? '<div class="error-message">⚠️ Cart totals may not be accurate. Please review before checkout.</div>' : ''}
+          
+          <div class="cart-items">
+            ${cart.map((item, index) => `
+              <div class="cart-item">
+                <div class="cart-item-image">${getCategoryEmoji(item.product.category)}</div>
+                <div class="cart-item-info">
+                  <div class="cart-item-name">${item.product.name}</div>
+                  <div class="cart-item-price">$${item.product.price} each</div>
+                  ${Math.random() > 0.7 ? '<div style="color: red; font-size: 10px;">⚠️ Price may have changed</div>' : ''}
+                </div>
+                <div>
+                  <label style="font-size: 11px;">Qty:</label>
+                  <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" max="10" 
+                         onchange="brokenUpdateQuantity(${index}, this.value)">
+                </div>
+                <div class="cart-item-total">$${(item.product.price * item.quantity).toFixed(2)}</div>
+                <button onclick="unreliableRemoveFromCart(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;">Remove</button>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="cart-summary">
+            <div class="cart-summary-row">
+              <span>Subtotal:</span>
+              <span>$${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Shipping:</span>
+              <span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Tax:</span>
+              <span>$${tax.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row total">
+              <span>Total:</span>
+              <span>$${total.toFixed(2)}</span>
+            </div>
+            <p style="font-size: 9px; color: #999; margin-top: 5px;">*Prices and availability subject to change</p>
+            
+            <button class="btn" style="width: 100%; padding: 15px; font-size: 16px; margin-top: 20px;" onclick="brokenCheckout()">
+              Proceed to Checkout
+            </button>
+            <button class="btn btn-secondary" style="width: 100%; padding: 10px; margin-top: 10px;" onclick="slowLoad('all')">
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getServicesPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">Our Services</h1>
+          
+          <div class="form-section">
+            <h3>Grooming Services</h3>
+            <p>We offer professional grooming services for dogs and cats.</p>
+            <ul>
+              <li>Dog Grooming - Full service</li>
+              <li>Cat Grooming - Gentle handling</li>
+              <li>Bath & Brush</li>
+              <li>Nail Trim Only</li>
+            </ul>
+            <p style="font-size: 12px; color: #666; font-style: italic;">Pricing varies by pet size. Call for quotes.</p>
+            <button class="btn" onclick="showError('Phone lines are currently busy. Please try again later or visit us in person.')">Call to Schedule Grooming</button>
+          </div>
+          
+          <div class="form-section">
+            <h3>Training Classes</h3>
+            <p>Professional dog training classes for puppies and adult dogs.</p>
+            <ul>
+              <li>Puppy Kindergarten - 6-week course</li>
+              <li>Basic Obedience - 8-week course</li>
+              <li>Advanced Training</li>
+              <li>Private Sessions</li>
+            </ul>
+            <p style="font-size: 12px; color: #666; font-style: italic;">Classes start monthly. Call for schedule.</p>
+            <button class="btn" onclick="showError('Online registration is temporarily unavailable. Please call (555) 123-4567 during business hours.')">Register for Classes</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAboutPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">About Snout n About</h1>
+          <p>We are a family-owned pet supply store serving the community since 1995.</p>
+          <p>For nearly 30 years, we've been dedicated to providing pet parents with quality products and expert advice.</p>
+        </div>
+      `;
+    }
+
+    function getContactPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">Contact Us</h1>
+          <p><strong>Phone:</strong> (555) 123-4567</p>
+          <p><strong>Email:</strong> info@snoutnabout.com</p>
+          <p style="font-size: 11px; color: #999;">Please allow 5-7 business days for email responses.</p>
+          
+          <div class="form-section" style="margin-top: 30px;">
+            <h3>Send a Message</h3>
+            <form onsubmit="brokenContactForm(event)">
+              <div class="form-row">
+                <label>Your Name *</label>
+                <input type="text" required>
+              </div>
+              <div class="form-row">
+                <label>Email *</label>
+                <input type="email" required>
+              </div>
+              <div class="form-row">
+                <label>Message *</label>
+                <textarea rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function getLocationsPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">Store Locations</h1>
+          <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Store hours and availability subject to change without notice.</p>
+          
+          <div style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
+            <h3>Main Street Store</h3>
+            <p><strong>Address:</strong> 123 Main St, Austin, TX 78701</p>
+            <p><strong>Phone:</strong> (555) 123-4567</p>
+            <p><strong>Hours:</strong> Mon-Fri 9am-8pm, Sat 9am-6pm, Sun 10am-5pm</p>
+            <button class="btn-fake" disabled>Get Directions (Unavailable)</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // BROKEN FUNCTIONALITY
+
+    function unreliableAddToCart(productId, quantity = 1) {
+      cartFailCount++;
+      
+      // 40% chance of failure
+      if (Math.random() > 0.6) {
+        const errors = [
+          'Unable to add item to cart. Please try again.',
+          'Session expired. Please refresh and try again.',
+          'Item temporarily unavailable.',
+          'Cart update failed. Error code: ' + Math.floor(Math.random() * 9999),
+          'This item cannot be added at this time.',
+        ];
+        showError(errors[Math.floor(Math.random() * errors.length)]);
+        return;
+      }
+      
+      const product = products.find(p => p.id === productId);
+      if (!product || product.stock !== 'In Stock') {
+        showError('This item is no longer available.');
+        return;
+      }
+      
+      // Sometimes adds wrong quantity
+      const actualQty = Math.random() > 0.8 ? Math.floor(Math.random() * 3) + 1 : parseInt(quantity);
+      
+      const existingItem = cart.find(item => item.product.id === productId);
+      if (existingItem) {
+        existingItem.quantity += actualQty;
+      } else {
+        cart.push({ product, quantity: actualQty });
+      }
+      
+      updateCartCount();
+      
+      if (actualQty !== parseInt(quantity)) {
+        alert(`Added ${actualQty} item(s) to cart. (Quantity adjusted)`);
+      } else {
+        alert(`Added ${product.name} to cart!`);
+      }
+    }
+
+    function unreliableRemoveFromCart(index) {
+      // Sometimes doesn't work
+      if (Math.random() > 0.7) {
+        showError('Unable to remove item. Please try again.');
+        return;
+      }
+      
+      cart.splice(index, 1);
+      updateCartCount();
+      showPage('cart');
+    }
+
+    function brokenUpdateQuantity(index, quantity) {
+      // Just doesn't update properly
+      showError('Quantity update failed. Please remove item and re-add.');
+    }
+
+    function brokenCheckout() {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('Checkout is temporarily unavailable. Please try again later or call (555) 123-4567 to complete your order.');
+      }, 3000);
+    }
+
+    function brokenLogin() {
+      showError('Account login is currently unavailable. Please try again later.');
+    }
+
+    function brokenSearch() {
+      const query = document.getElementById('searchInput').value;
+      if (!query) return;
+      
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('Search is temporarily unavailable. Please browse our categories instead.');
+      }, 2000);
+    }
+
+    function brokenLink() {
+      showError('This page is temporarily unavailable. Error 404.');
+    }
+
+    function brokenContactForm(event) {
+      event.preventDefault();
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('Message could not be sent. Our contact form is experiencing technical difficulties. Please call us directly at (555) 123-4567.');
+      }, 2000);
+    }
+
+    // UI FUNCTIONS
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const el = document.getElementById('cartCount');
+      if (el) {
+        el.textContent = count;
+        el.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loadingIndicator').classList.add('active');
+      document.getElementById('mainContent').style.opacity = '0.3';
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingIndicator').classList.remove('active');
+      document.getElementById('mainContent').style.opacity = '1';
+    }
+
+    function showError(message) {
+      document.getElementById('errorMessage').innerHTML = `
+        <div class="error-message">
+          <strong>⚠️ Error</strong><br>
+          ${message}
+        </div>
+      `;
+      document.getElementById('errorModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function getCategoryEmoji(category) {
+      const emojis = {
+        'dogs': '🐕',
+        'cats': '🐈',
+        'birds': '🐦',
+        'fish': '🐠',
+        'small-pets': '🐰',
+        'reptiles': '🦎'
+      };
+      return emojis[category] || '🐾';
+    }
+
+    // INITIALIZE
+    window.onload = init;
+  </script>
+</body>
+</html>
+<!--
+What's Broken:
+Technical Failures:
+
+Add to Cart fails 40% of the time with random error messages
+Search doesn't work - just shows error
+Slow loading - everything takes 1-5 seconds with loading spinner
+Navigation links randomly fail with "Error 404"
+Checkout completely broken - can't complete orders
+Login unavailable - can't access account
+Remove from cart fails 30% of the time
+Quantity updates don't work - shows error
+Contact form fails after loading
+Filters disabled - can't use them
+Sort dropdown disabled
+Service booking buttons show errors
+
+Inventory Problems:
+
+Most products "Out of Stock"
+Some marked "Discontinued"
+Some require "Vet Approval"
+Stock status randomly changes
+
+Cart Issues:
+
+Sometimes adds wrong quantity
+Cart totals randomly fluctuate
+Items may disappear due to "session timeout"
+Price warnings appear randomly
+
+Auto-rotating Carousel:
+
+Sometimes doesn't rotate at all
+Sometimes rotates way too fast (1 second)
+Sometimes rotates way too slow (5 seconds)
+
+Performance:
+
+1-5 second delays on EVERYTHING
+Random "session expired" errors
+Pages fail to load sometimes
+Generic error codes: "Error 8472"
+
+Feel the pain points of:
+
+Persona 1 trying to reorder (cart keeps failing)
+Persona 2 trying to find puppy treats (search broken, categories fail)
+Persona 3 trying to get help (contact form broken, phones "busy")
+Persona 4 trying to buy bulk (inventory unavailable)
+
+-->

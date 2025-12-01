@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snout n About - Premium Pet Supplies</title>
+  <style>
+    /* FIXED VERSION - Good UX Design */
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      color: #1a1a1a;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    /* HEADER */
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2563eb;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-box input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input[type="text"]:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    .search-box button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .search-box button:hover {
+      background: #1d4ed8;
+    }
+
+    .utility-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-size: 15px;
+    }
+
+    .cart-count {
+      background: #ef4444;
+      color: white;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-item > a {
+      display: block;
+      padding: 16px 20px;
+      color: #374151;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .nav-item > a:hover {
+      background: #ffffff;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    /* Dropdown */
+    .nav-submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 200px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .nav-item:hover .nav-submenu {
+      display: block;
+    }
+
+    .nav-submenu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-submenu li {
+      margin-bottom: 8px;
+    }
+
+    .nav-submenu li:last-child {
+      margin-bottom: 0;
+    }
+
+    .nav-submenu a {
+      display: block;
+      padding: 8px 12px;
+      color: #374151;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .nav-submenu a:hover {
+      background: #f3f4f6;
+      text-decoration: none;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 64px 32px;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin: 0 0 16px 0;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin: 0 0 32px 0;
+      opacity: 0.95;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+    .btn-white {
+      background: white;
+      color: #2563eb;
+    }
+
+    .btn-white:hover {
+      background: #f9fafb;
+    }
+
+    /* PRODUCT GRID */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+      border-color: #d1d5db;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 240px;
+      background: #f9fafb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      margin-bottom: 16px;
+    }
+
+    .product-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      min-height: 50px;
+    }
+
+    .product-rating {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+
+    .product-stock {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .stock-in { color: #059669; }
+    .stock-low { color: #d97706; }
+    .stock-out { color: #dc2626; }
+
+    /* PRODUCT DETAIL */
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .product-image-large {
+      width: 100%;
+      height: 500px;
+      background: #f9fafb;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+    }
+
+    .product-info h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+      line-height: 1.2;
+    }
+
+    .product-meta {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .product-price-large {
+      font-size: 40px;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 24px;
+    }
+
+    .quantity-selector {
+      margin-bottom: 24px;
+    }
+
+    .quantity-selector label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .quantity-selector input {
+      width: 80px;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* CART */
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+    }
+
+    .cart-items {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto auto auto;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e7eb;
+      align-items: center;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-image {
+      width: 100px;
+      height: 100px;
+      background: #f9fafb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .cart-item-price {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .cart-item-qty input {
+      width: 70px;
+      padding: 8px;
+      text-align: center;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .cart-item-total {
+      font-weight: 700;
+      font-size: 18px;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .cart-item-remove {
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 8px;
+      transition: color 0.2s;
+    }
+
+    .cart-item-remove:hover {
+      color: #991b1b;
+      text-decoration: underline;
+    }
+
+    /* CART SUMMARY */
+    .cart-summary {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .cart-summary h3 {
+      margin: 0 0 20px 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .summary-line.total {
+      font-size: 24px;
+      font-weight: 700;
+      padding-top: 16px;
+      border-top: 2px solid #e5e7eb;
+      margin-top: 16px;
+    }
+
+    /* FORMS */
+    .form-section {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .form-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 24px 0;
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 80px 32px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .empty-state h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+    }
+
+    .empty-state p {
+      color: #6b7280;
+      margin: 0 0 32px 0;
+      font-size: 16px;
+    }
+
+    /* LOADING */
+    .loading {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e5e7eb;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 32px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 25px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      font-size: 32px;
+      cursor: pointer;
+      color: #9ca3af;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #374151;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #1f2937;
+      color: #d1d5db;
+      padding: 48px 24px 24px;
+      margin-top: 64px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: #d1d5db;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid #374151;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    /* BREADCRUMBS */
+    .breadcrumbs {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .breadcrumbs a {
+      color: #6b7280;
+    }
+
+    .breadcrumbs a:hover {
+      color: #2563eb;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .search-container {
+        width: 100%;
+        max-width: none;
+      }
+
+      .nav-list {
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+
+      .product-detail {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 12px;
+      }
+
+      .cart-item-qty,
+      .cart-item-total,
+      .cart-item-remove {
+        grid-column: 2;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo" onclick="showPage('home')">Snout n About</div>
+      
+      <div class="search-container">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search for products..." aria-label="Search products">
+          <button onclick="performSearch()">Search</button>
+        </div>
+      </div>
+      
+      <div class="utility-nav">
+        <a href="#" onclick="showPage('account')">Account</a>
+        <a href="#" onclick="showPage('orders')">Orders</a>
+        <a href="#" onclick="showPage('cart')">
+          Cart
+          <span class="cart-count" id="cartCount" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-container">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#" onclick="showPage('home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#">Shop</a>
+            <div class="nav-submenu">
+              <ul>
+                <li><a href="#" onclick="showProducts('dogs')">Dogs</a></li>
+                <li><a href="#" onclick="showProducts('cats')">Cats</a></li>
+                <li><a href="#" onclick="showProducts('birds')">Birds</a></li>
+                <li><a href="#" onclick="showProducts('fish')">Fish</a></li>
+                <li><a href="#" onclick="showProducts('all')">All Products</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" onclick="showPage('services')">Services</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" onclick="showPage('about')">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" onclick="showPage('contact')">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent"></div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay" class="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- MESSAGE MODAL -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Message</h2>
+        <span class="modal-close" onclick="closeModal('messageModal')">&times;</span>
+      </div>
+      <div id="messageContent"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#" onclick="showProducts('dogs')">Dogs</a></li>
+            <li><a href="#" onclick="showProducts('cats')">Cats</a></li>
+            <li><a href="#" onclick="showProducts('birds')">Birds</a></li>
+            <li><a href="#" onclick="showProducts('fish')">Fish</a></li>
+            <li><a href="#" onclick="showProducts('all')">All Products</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#" onclick="showPage('services')">Grooming</a></li>
+            <li><a href="#" onclick="showPage('services')">Training</a></li>
+            <li><a href="#" onclick="showPage('services')">Vet Referrals</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#" onclick="showPage('about')">About Us</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Track Order</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Snout n About. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // FULLY FUNCTIONAL E-COMMERCE SITE
+    let cart = [];
+
+    const products = [
+      { id: 1, name: 'Premium Puppy Training Treats', category: 'dogs', type: 'treats', price: 12.99, stock: 'In Stock', rating: 4.5, reviews: 234 },
+      { id: 2, name: 'Adult Dog Food - Chicken & Rice 30lb', category: 'dogs', type: 'food', price: 45.99, stock: 'Low Stock', rating: 4.7, reviews: 892 },
+      { id: 3, name: 'Senior Dog Joint Support Supplement', category: 'dogs', type: 'health', price: 32.99, stock: 'In Stock', rating: 4.6, reviews: 445 },
+      { id: 4, name: 'Interactive Dog Puzzle Toy', category: 'dogs', type: 'toys', price: 24.99, stock: 'In Stock', rating: 4.8, reviews: 667 },
+      { id: 5, name: 'Kitten Starter Kit with Supplies', category: 'cats', type: 'supplies', price: 39.99, stock: 'Low Stock', rating: 4.4, reviews: 123 },
+      { id: 6, name: 'Premium Clumping Cat Litter 40lb', category: 'cats', type: 'supplies', price: 18.99, stock: 'In Stock', rating: 4.5, reviews: 1203 },
+      { id: 7, name: 'Multi-Level Cat Scratching Tower', category: 'cats', type: 'furniture', price: 89.99, stock: 'In Stock', rating: 4.7, reviews: 334 },
+      { id: 8, name: 'Organic Catnip Toy Bundle (5 pack)', category: 'cats', type: 'toys', price: 15.99, stock: 'Out of Stock', rating: 4.3, reviews: 567 },
+      { id: 9, name: 'Large Bird Cage with Accessories', category: 'birds', type: 'housing', price: 129.99, stock: 'In Stock', rating: 4.6, reviews: 89 },
+      { id: 10, name: 'Complete Aquarium Starter Kit 20gal', category: 'fish', type: 'housing', price: 79.99, stock: 'In Stock', rating: 4.5, reviews: 234 },
+      { id: 11, name: 'Natural Small Pet Bedding', category: 'small-pets', type: 'supplies', price: 14.99, stock: 'In Stock', rating: 4.4, reviews: 178 },
+      { id: 12, name: 'Dental Chews for Dogs - Value Pack', category: 'dogs', type: 'treats', price: 22.99, stock: 'In Stock', rating: 4.9, reviews: 1456 },
+    ];
+
+    function init() {
+      updateCartCount();
+      showPage('home');
+    }
+
+    function showPage(page) {
+      showLoading();
+      
+      setTimeout(() => {
+        const content = document.getElementById('mainContent');
+        
+        switch(page) {
+          case 'home':
+            content.innerHTML = getHomePage();
+            break;
+          case 'cart':
+            content.innerHTML = getCartPage();
+            break;
+          case 'checkout':
+            content.innerHTML = getCheckoutPage();
+            break;
+          case 'services':
+            content.innerHTML = getServicesPage();
+            break;
+          case 'about':
+            content.innerHTML = getAboutPage();
+            break;
+          case 'contact':
+            content.innerHTML = getContactPage();
+            break;
+          case 'account':
+          case 'orders':
+            content.innerHTML = getAccountPage();
+            break;
+          default:
+            content.innerHTML = getHomePage();
+        }
+        
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
+
+    function showProducts(category) {
+      showLoading();
+      
+      setTimeout(() => {
+        const filtered = category === 'all' 
+          ? products 
+          : products.filter(p => p.category === category || p.type === category);
+        
+        const content = document.getElementById('mainContent');
+        content.innerHTML = getProductsPage(filtered, category);
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
+
+    function showProductDetail(productId) {
+      showLoading();
+      
+      setTimeout(() => {
+        const product = products.find(p => p.id === productId);
+        const content = document.getElementById('mainContent');
+        content.innerHTML = getProductDetailPage(product);
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
+
+    // PAGES
+    function getHomePage() {
+      return `
+        <div class="content">
+          <div class="hero">
+            <h1>Premium Pet Supplies for Happy, Healthy Pets</h1>
+            <p>Quality products, expert advice, and caring service since 1995</p>
+            <button class="btn btn-white" onclick="showProducts('all')">Shop Now</button>
+          </div>
+
+          <h2 class="section-title">Shop by Pet</h2>
+          <div class="product-grid">
+            ${[
+              { cat: 'dogs', name: 'Dogs', emoji: '🐕' },
+              { cat: 'cats', name: 'Cats', emoji: '🐈' },
+              { cat: 'birds', name: 'Birds', emoji: '🐦' },
+              { cat: 'fish', name: 'Fish', emoji: '🐠' }
+            ].map(item => `
+              <div class="product-card" onclick="showProducts('${item.cat}')">
+                <div class="product-image">${item.emoji}</div>
+                <div class="product-name" style="text-align: center; min-height: auto;">${item.name}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div style="background: #f9fafb; padding: 48px 32px; border-radius: 12px; text-align: center; margin-top: 32px;">
+            <h2 style="margin-top: 0; font-size: 32px;">Why Choose Snout n About?</h2>
+            <p style="font-size: 18px; color: #6b7280; max-width: 800px; margin: 0 auto;">
+              For nearly 30 years, we've been your trusted partner in pet care. Our expert team is passionate about 
+              helping you find exactly what your furry, feathered, or finned friends need to thrive.
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getProductsPage(filtered, category) {
+      return `
+        <div class="content">
+          <div class="breadcrumbs">
+            <a href="#" onclick="showPage('home')">Home</a> / 
+            <a href="#">Shop</a> / 
+            ${category.charAt(0).toUpperCase() + category.slice(1)}
+          </div>
+
+          <div class="section-header">
+            <h1 class="section-title">Shop ${category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+            <div style="color: #6b7280;">${filtered.length} products</div>
+          </div>
+
+          <div class="product-grid">
+            ${filtered.map(p => `
+              <div class="product-card" onclick="showProductDetail(${p.id})">
+                <div class="product-image">${getCategoryEmoji(p.category)}</div>
+                <div class="product-name">${p.name}</div>
+                <div class="product-rating">★★★★${p.rating >= 4.5 ? '★' : '☆'} ${p.rating} (${p.reviews} reviews)</div>
+                <div class="product-price">$${p.price.toFixed(2)}</div>
+                <div class="product-stock ${getStockClass(p.stock)}">
+                  ${p.stock}
+                </div>
+                ${p.stock !== 'Out of Stock' ? `
+                  <button class="btn btn-primary" style="width: 100%;" onclick="event.stopPropagation(); addToCart(${p.id})">Add to Cart</button>
+                ` : `
+                  <button class="btn btn-secondary" style="width: 100%;" disabled>Out of Stock</button>
+                `}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function getProductDetailPage(product) {
+      return `
+        <div class="content">
+          <div class="breadcrumbs">
+            <a href="#" onclick="showPage('home')">Home</a> / 
+            <a href="#" onclick="showProducts('${product.category}')">Shop</a> / 
+            ${product.name}
+          </div>
+
+          <div class="product-detail">
+            <div class="product-image-large">${getCategoryEmoji(product.category)}</div>
+            <div class="product-info">
+              <h1>${product.name}</h1>
+              <div class="product-meta">
+                ★★★★${product.rating >= 4.5 ? '★' : '☆'} ${product.rating} (${product.reviews} reviews) | 
+                SKU: ${product.id}${Math.floor(Math.random() * 10000)}
+              </div>
+              <div class="product-price-large">$${product.price.toFixed(2)}</div>
+              <div class="product-stock ${getStockClass(product.stock)}" style="font-size: 16px; margin-bottom: 24px;">
+                ${product.stock} - ${getShippingMessage(product.stock)}
+              </div>
+
+              ${product.stock !== 'Out of Stock' ? `
+                <div class="quantity-selector">
+                  <label>Quantity</label>
+                  <input type="number" id="qty-${product.id}" value="1" min="1" max="10">
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-bottom: 32px;">
+                  <button class="btn btn-primary" onclick="addToCart(${product.id}, document.getElementById('qty-${product.id}').value)">
+                    Add to Cart
+                  </button>
+                  <button class="btn btn-secondary" onclick="showProducts('${product.category}')">
+                    Continue Shopping
+                  </button>
+                </div>
+              ` : `
+                <button class="btn btn-secondary" disabled style="margin-bottom: 32px;">Out of Stock</button>
+              `}
+
+              <div style="padding-top: 32px; border-top: 1px solid #e5e7eb;">
+                <h3 style="font-size: 20px; margin-top: 0;">Product Details</h3>
+                <p style="color: #6b7280; line-height: 1.7;">
+                  ${getProductDescription(product)}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCartPage() {
+      if (cart.length === 0) {
+        return `
+          <div class="content">
+            <div class="empty-state">
+              <h2>Your cart is empty</h2>
+              <p>Start shopping to add items to your cart</p>
+              <button class="btn btn-primary" onclick="showProducts('all')">Shop Now</button>
+            </div>
+          </div>
+        `;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const shipping = subtotal >= 75 ? 0 : 9.99;
+      const tax = subtotal * 0.0825;
+      const total = subtotal + shipping + tax;
+
+      return `
+        <div class="content">
+          <h1 class="section-title">Shopping Cart</h1>
+
+          <div class="cart-layout">
+            <div class="cart-items">
+              ${cart.map((item, index) => `
+                <div class="cart-item">
+                  <div class="cart-item-image">${getCategoryEmoji(item.product.category)}</div>
+                  <div>
+                    <div class="cart-item-name">${item.product.name}</div>
+                    <div class="cart-item-price">$${item.product.price.toFixed(2)} each</div>
+                  </div>
+                  <div class="cart-item-qty">
+                    <input type="number" value="${item.quantity}" min="1" max="10" 
+                           onchange="updateQuantity(${index}, this.value)">
+                  </div>
+                  <div class="cart-item-total">$${(item.product.price * item.quantity).toFixed(2)}</div>
+                  <div class="cart-item-remove" onclick="removeFromCart(${index})">Remove</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="cart-summary">
+              <h3>Order Summary</h3>
+              
+              <div class="summary-line">
+                <span>Subtotal</span>
+                <span>$${subtotal.toFixed(2)}</span>
+              </div>
+              <div class="summary-line">
+                <span>Shipping</span>
+                <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
+              </div>
+              ${shipping > 0 ? `
+                <div style="font-size: 14px; color: #6b7280; margin-bottom: 12px;">
+                  Free shipping on orders over $75
+                </div>
+              ` : ''}
+              <div class="summary-line">
+                <span>Tax</span>
+                <span>$${tax.toFixed(2)}</span>
+              </div>
+              <div class="summary-line total">
+                <span>Total</span>
+                <span>$${total.toFixed(2)}</span>
+              </div>
+
+              <button class="btn btn-primary" style="width: 100%; margin-top: 24px;" onclick="showPage('checkout')">
+                Proceed to Checkout
+              </button>
+              <button class="btn btn-secondary" style="width: 100%; margin-top: 12px;" onclick="showProducts('all')">
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCheckoutPage() {
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const shipping = subtotal >= 75 ? 0 : 9.99;
+      const tax = subtotal * 0.0825;
+      const total = subtotal + shipping + tax;
+
+      return `
+        <div class="content">
+          <h1 class="section-title">Checkout</h1>
+
+          <form onsubmit="submitOrder(event)">
+            <div class="form-section">
+              <h2>Contact Information</h2>
+              <div class="form-field">
+                <label>Email Address *</label>
+                <input type="email" required placeholder="your@email.com">
+              </div>
+              <div class="form-field">
+                <label>Phone Number *</label>
+                <input type="tel" required placeholder="(555) 123-4567">
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Shipping Address</h2>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>First Name *</label>
+                  <input type="text" required>
+                </div>
+                <div class="form-field">
+                  <label>Last Name *</label>
+                  <input type="text" required>
+                </div>
+              </div>
+              <div class="form-field">
+                <label>Street Address *</label>
+                <input type="text" required>
+              </div>
+              <div class="form-field">
+                <label>Apartment, Suite, etc. (optional)</label>
+                <input type="text">
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>City *</label>
+                  <input type="text" required>
+                </div>
+                <div class="form-field">
+                  <label>State *</label>
+                  <select required>
+                    <option value="">Select State</option>
+                    <option>Texas</option>
+                    <option>California</option>
+                    <option>New York</option>
+                    <option>Florida</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-field">
+                <label>ZIP Code *</label>
+                <input type="text" required pattern="[0-9]{5}">
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Payment Information</h2>
+              <div class="form-field">
+                <label>Card Number *</label>
+                <input type="text" required placeholder="1234 5678 9012 3456">
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>Expiration Date *</label>
+                  <input type="text" placeholder="MM/YY" required>
+                </div>
+                <div class="form-field">
+                  <label>CVV *</label>
+                  <input type="text" required placeholder="123">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Order Summary</h2>
+              <div class="summary-line">
+                <span>Subtotal</span>
+                <span>$${subtotal.toFixed(2)}</span>
+              </div>
+              <div class="summary-line">
+                <span>Shipping</span>
+                <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
+              </div>
+              <div class="summary-line">
+                <span>Tax</span>
+                <span>$${tax.toFixed(2)}</span>
+              </div>
+              <div class="summary-line total">
+                <span>Total</span>
+                <span>$${total.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 18px; padding: 16px;">
+              Complete Order - $${total.toFixed(2)}
+            </button>
+          </form>
+        </div>
+      `;
+    }
+
+    function getServicesPage() {
+      return `
+        <div class="content">
+          <h1 class="section-title">Pet Services</h1>
+          
+          <div class="form-section">
+            <h2>Professional Grooming</h2>
+            <p style="color: #6b7280; margin-bottom: 20px;">
+              Our experienced groomers provide gentle, professional care for your pets in a comfortable environment.
+            </p>
+            <ul style="margin: 20px 0; color: #374151;">
+              <li style="margin-bottom: 12px;"><strong>Bath & Brush:</strong> Starting at $35</li>
+              <li style="margin-bottom: 12px;"><strong>Full Grooming Service:</strong> Starting at $55</li>
+              <li style="margin-bottom: 12px;"><strong>Nail Trim:</strong> $15</li>
+              <li style="margin-bottom: 12px;"><strong>Teeth Cleaning:</strong> $25</li>
+            </ul>
+            <button class="btn btn-primary" onclick="showMessage('Please call (555) 123-4567 to schedule a grooming appointment.')">
+              Schedule Grooming
+            </button>
+          </div>
+
+          <div class="form-section">
+            <h2>Training Classes</h2>
+            <p style="color: #6b7280; margin-bottom: 20px;">
+              Expert trainers help your dog master essential skills through positive reinforcement techniques.
+            </p>
+            <ul style="margin: 20px 0; color: #374151;">
+              <li style="margin-bottom: 12px;"><strong>Puppy Kindergarten:</strong> 6 weeks, $199</li>
+              <li style="margin-bottom: 12px;"><strong>Basic Obedience:</strong> 8 weeks, $249</li>
+              <li style="margin-bottom: 12px;"><strong>Advanced Training:</strong> 8 weeks, $299</li>
+            </ul>
+            <button class="btn btn-primary" onclick="showMessage('Please call (555) 123-4567 to enroll in training classes.')">
+              Enroll in Training
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAboutPage() {
+      return `
+        <div class="content">
+          <h1 class="section-title">About Snout n About</h1>
+          <div class="form-section">
+            <p style="font-size: 18px; line-height: 1.7; color: #374151;">
+              Since 1995, Snout n About has been a trusted partner for pet parents in our community. 
+              We're passionate about providing quality products, expert advice, and caring service to help 
+              your pets live their happiest, healthiest lives.
+            </p>
+            <h3 style="margin-top: 32px; font-size: 20px;">Our Locations</h3>
+            <ul style="margin: 16px 0; color: #374151; line-height: 1.8;">
+              <li style="margin-bottom: 12px;"><strong>Downtown:</strong> 123 Main Street | (555) 123-4567</li>
+              <li style="margin-bottom: 12px;"><strong>Westside:</strong> 456 Oak Avenue | (555) 234-5678</li>
+              <li style="margin-bottom: 12px;"><strong>North Location:</strong> 789 Elm Road | (555) 345-6789</li>
+            </ul>
+            <p style="margin-top: 24px; color: #6b7280;">
+              <strong>Hours:</strong> Monday-Saturday 9:00 AM - 7:00 PM | Sunday 10:00 AM - 6:00 PM
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getContactPage() {
+      return `
+        <div class="content">
+          <h1 class="section-title">Contact Us</h1>
+          
+          <div class="form-section" style="margin-bottom: 32px;">
+            <h2>Get in Touch</h2>
+            <p style="color: #6b7280; margin-bottom: 20px;">
+              Have questions? We're here to help! Reach out to us and we'll get back to you as soon as possible.
+            </p>
+            <p style="color: #374151; line-height: 1.8;">
+              <strong>Phone:</strong> (555) 123-4567<br>
+              <strong>Email:</strong> info@snoutnabout.com<br>
+              <strong>Hours:</strong> Monday-Saturday 9:00 AM - 7:00 PM, Sunday 10:00 AM - 6:00 PM
+            </p>
+          </div>
+
+          <div class="form-section">
+            <h2>Send Us a Message</h2>
+            <form onsubmit="submitContact(event)">
+              <div class="form-field">
+                <label>Name *</label>
+                <input type="text" required>
+              </div>
+              <div class="form-field">
+                <label>Email *</label>
+                <input type="email" required>
+              </div>
+              <div class="form-field">
+                <label>Phone</label>
+                <input type="tel">
+              </div>
+              <div class="form-field">
+                <label>Message *</label>
+                <textarea required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAccountPage() {
+      return `
+        <div class="content">
+          <h1 class="section-title">My Account</h1>
+          <div class="empty-state">
+            <h2>No Orders Yet</h2>
+            <p>You haven't placed any orders. Start shopping to see your order history here.</p>
+            <button class="btn btn-primary" onclick="showProducts('all')">Start Shopping</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // FUNCTIONS
+    function addToCart(productId, quantity = 1) {
+      const product = products.find(p => p.id === productId);
+      if (!product || product.stock === 'Out of Stock') return;
+
+      const existing = cart.find(item => item.product.id === productId);
+      if (existing) {
+        existing.quantity += parseInt(quantity);
+      } else {
+        cart.push({ product, quantity: parseInt(quantity) });
+      }
+
+      updateCartCount();
+      showMessage('Item added to cart successfully!');
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartCount();
+      showPage('cart');
+    }
+
+    function updateQuantity(index, newQty) {
+      const qty = parseInt(newQty);
+      if (qty > 0) {
+        cart[index].quantity = qty;
+        updateCartCount();
+        showPage('cart');
+      }
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+      showLoading();
+      
+      setTimeout(() => {
+        hideLoading();
+        cart = [];
+        updateCartCount();
+        showMessage('Order placed successfully! You will receive a confirmation email shortly.');
+        setTimeout(() => {
+          showPage('home');
+        }, 2000);
+      }, 1500);
+    }
+
+    function performSearch() {
+      const query = document.getElementById('searchInput').value;
+      if (query) {
+        showProducts('all');
+      }
+    }
+
+    function submitContact(event) {
+      event.preventDefault();
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showMessage('Thank you for contacting us! We will respond within 24 hours.');
+        event.target.reset();
+      }, 1000);
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const badge = document.getElementById('cartCount');
+      if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loadingOverlay').classList.add('active');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').classList.remove('active');
+    }
+
+    function showMessage(message) {
+      document.getElementById('messageContent').innerHTML = `<p style="margin: 0;">${message}</p>`;
+      document.getElementById('messageModal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function getCategoryEmoji(category) {
+      const emojis = {
+        'dogs': '🐕',
+        'cats': '🐈',
+        'birds': '🐦',
+        'fish': '🐠',
+        'small-pets': '🐰'
+      };
+      return emojis[category] || '🐾';
+    }
+
+    function getStockClass(stock) {
+      if (stock === 'In Stock') return 'stock-in';
+      if (stock === 'Low Stock') return 'stock-low';
+      return 'stock-out';
+    }
+
+    function getShippingMessage(stock) {
+      if (stock === 'In Stock') return 'Ships within 2-3 business days';
+      if (stock === 'Low Stock') return 'Limited availability - order soon';
+      return 'Currently unavailable';
+    }
+
+    function getProductDescription(product) {
+      const descriptions = {
+        1: 'These premium training treats are perfect for rewarding good behavior. Made with natural ingredients and sized perfectly for training sessions.',
+        2: 'High-quality adult dog food made with real chicken and brown rice. Provides complete nutrition for active adult dogs.',
+        3: 'Supports joint health and mobility in senior dogs with glucosamine and chondroitin. Vet recommended formula.',
+        4: 'Keep your dog mentally stimulated with this interactive puzzle toy. Multiple difficulty levels to challenge your pup.',
+        5: 'Everything you need to welcome a new kitten home. Includes toys, treats, grooming supplies, and helpful guides.',
+        6: 'Superior odor control with advanced clumping technology. Low dust formula for cleaner air quality.',
+        7: 'Multi-level tower provides scratching posts, perches, and hiding spots. Perfect for active cats.',
+        8: 'Bundle of 5 premium catnip toys to keep your cat entertained. Made with organic catnip.',
+        9: 'Spacious cage with perches, feeding dishes, and plenty of room for your feathered friend.',
+        10: 'Complete aquarium kit includes tank, filter, heater, and all necessary accessories to get started.',
+        11: 'Natural, dust-free bedding made from recycled paper. Safe and comfortable for small pets.',
+        12: 'Dental chews help reduce plaque and tartar while freshening breath. Dogs love the taste!'
+      };
+      return descriptions[product.id] || 'High-quality product for your pet.';
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

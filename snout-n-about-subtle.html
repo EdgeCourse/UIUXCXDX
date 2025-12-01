@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snout n About - Premium Pet Supplies</title>
+  <style>
+    /* SUBTLY TERRIBLE - Professional looking but deeply flawed */
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #2c5aa0;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:hover {
+      color: #1a3a6e;
+      text-decoration: underline;
+    }
+
+    /* Subtle newsletter signup that appears unexpectedly */
+    .newsletter-popup {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      max-width: 350px;
+      font-size: 13px;
+    }
+
+    .newsletter-popup.active {
+      display: block;
+    }
+
+    .newsletter-popup h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+
+    .newsletter-popup input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .newsletter-popup button {
+      width: 100%;
+      padding: 10px;
+      background: #2c5aa0;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .newsletter-popup .close-popup {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      cursor: pointer;
+      color: #999;
+      font-size: 20px;
+    }
+
+    /* HEADER */
+    .header {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-top {
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2c5aa0;
+      cursor: pointer;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 40px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      border: 1px solid #ddd;
+      border-radius: 24px;
+      font-size: 14px;
+    }
+
+    .search-box button {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .utility-nav {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    .cart-count {
+      background: #e74c3c;
+      color: white;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    /* NAVIGATION - looks normal but has issues */
+    .nav {
+      padding: 0 40px;
+      background: white;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-item {
+      position: relative;
+      padding: 16px 0;
+    }
+
+    .nav-item > a {
+      color: #333;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    /* Dropdown appears/disappears on hover with delay issues */
+    .nav-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: -20px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      min-width: 600px;
+      z-index: 999;
+      margin-top: -1px;
+    }
+
+    .nav-item:hover .nav-dropdown {
+      display: block;
+      /* But loses focus easily - moves 1px away and it closes */
+    }
+
+    .nav-dropdown-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .nav-dropdown h4 {
+      font-size: 13px;
+      color: #666;
+      text-transform: uppercase;
+      margin: 0 0 12px 0;
+      font-weight: 600;
+    }
+
+    .nav-dropdown ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-dropdown li {
+      margin-bottom: 8px;
+    }
+
+    .nav-dropdown a {
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin: 0 0 16px 0;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin: 0 0 24px 0;
+      opacity: 0.95;
+    }
+
+    .btn {
+      padding: 12px 32px;
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: #2c5aa0;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1a3a6e;
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .page-title {
+      font-size: 32px;
+      margin: 0 0 24px 0;
+      font-weight: 700;
+    }
+
+    .breadcrumbs {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .breadcrumbs a {
+      color: #2c5aa0;
+    }
+
+    /* PRODUCTS */
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .products-count {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .sort-filter {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .sort-filter select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .products-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+    }
+
+    .filters-sidebar {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .filter-section {
+      margin-bottom: 24px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .filter-option input {
+      margin-right: 8px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 64px;
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #333;
+      min-height: 40px;
+    }
+
+    .product-rating {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c5aa0;
+      margin-bottom: 12px;
+    }
+
+    .product-stock {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .stock-in {
+      color: #27ae60;
+    }
+
+    .stock-low {
+      color: #e67e22;
+    }
+
+    .stock-out {
+      color: #e74c3c;
+    }
+
+    /* PRODUCT DETAIL */
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background: white;
+      padding: 32px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 32px;
+    }
+
+    .product-detail-image {
+      width: 100%;
+      height: 400px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+    }
+
+    .product-detail-info h1 {
+      font-size: 28px;
+      margin: 0 0 12px 0;
+    }
+
+    .product-detail-meta {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .product-detail-price {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2c5aa0;
+      margin-bottom: 20px;
+    }
+
+    .quantity-selector {
+      margin-bottom: 20px;
+    }
+
+    .quantity-selector label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .quantity-selector input {
+      padding: 8px;
+      width: 80px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* CART */
+    .cart-empty {
+      text-align: center;
+      padding: 80px 20px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 32px;
+    }
+
+    .cart-items {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto auto auto;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-image {
+      width: 100px;
+      height: 100px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .cart-item-name {
+      font-weight: 500;
+    }
+
+    .cart-item-price {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .cart-item-quantity input {
+      width: 60px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .cart-item-total {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .cart-item-remove {
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cart-summary {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 24px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .cart-summary h3 {
+      margin: 0 0 20px 0;
+      font-size: 18px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .summary-row.total {
+      font-size: 20px;
+      font-weight: 700;
+      padding-top: 12px;
+      border-top: 2px solid #e0e0e0;
+      margin-top: 12px;
+    }
+
+    .promo-code {
+      margin: 20px 0;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .promo-code input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* FORMS */
+    .form-section {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .form-section h2 {
+      font-size: 20px;
+      margin: 0 0 20px 0;
+    }
+
+    .form-row {
+      margin-bottom: 16px;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-row-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .error-banner {
+      background: #fef5f5;
+      border: 1px solid #e74c3c;
+      color: #c0392b;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    /* LOADING */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #2c5aa0;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .modal-close {
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #333;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 40px 40px 20px 40px;
+      margin-top: 60px;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+    }
+
+    .footer-column h3 {
+      font-size: 16px;
+      margin: 0 0 16px 0;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column a {
+      color: #bdc3c7;
+      font-size: 14px;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #34495e;
+      color: #95a5a6;
+      font-size: 13px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 20px;
+      }
+      
+      .search-box {
+        margin: 0;
+        max-width: 100%;
+      }
+      
+      .nav {
+        padding: 0 20px;
+      }
+      
+      .nav-items {
+        gap: 16px;
+        font-size: 14px;
+      }
+      
+      .products-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-detail-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-columns {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NEWSLETTER POPUP (appears after 8 seconds) -->
+  <div id="newsletterPopup" class="newsletter-popup">
+    <span class="close-popup" onclick="closeNewsletter()">&times;</span>
+    <h3>Join Our Community</h3>
+    <p>Get exclusive offers and pet care tips delivered to your inbox.</p>
+    <input type="email" placeholder="Enter your email" id="newsletterEmail">
+    <button onclick="subscribeNewsletter()">Subscribe</button>
+    <p style="font-size: 11px; color: #999; margin-top: 8px;">We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo" onclick="showPage('home')">Snout n About</div>
+      
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search for products, brands, or categories...">
+        <button onclick="performSearch()">🔍</button>
+      </div>
+      
+      <div class="utility-nav">
+        <a href="#" onclick="showPage('account')">Account</a>
+        <a href="#" onclick="showPage('orders')">Orders</a>
+        <a href="#" onclick="showPage('cart')">Cart<span class="cart-count" id="cartCount" style="display: none;">0</span></a>
+      </div>
+    </div>
+
+    <div class="nav">
+      <ul class="nav-items">
+        <li class="nav-item">
+          <a href="#" onclick="showPage('home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#">Shop</a>
+          <div class="nav-dropdown">
+            <div class="nav-dropdown-columns">
+              <div>
+                <h4>By Pet</h4>
+                <ul>
+                  <li><a href="#" onclick="showProducts('dogs')">Dogs</a></li>
+                  <li><a href="#" onclick="showProducts('cats')">Cats</a></li>
+                  <li><a href="#" onclick="showProducts('birds')">Birds</a></li>
+                  <li><a href="#" onclick="showProducts('fish')">Fish</a></li>
+                  <li><a href="#" onclick="showProducts('small-pets')">Small Pets</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>By Category</h4>
+                <ul>
+                  <li><a href="#" onclick="showProducts('food')">Food & Nutrition</a></li>
+                  <li><a href="#" onclick="showProducts('treats')">Treats</a></li>
+                  <li><a href="#" onclick="showProducts('toys')">Toys</a></li>
+                  <li><a href="#" onclick="showProducts('health')">Health & Wellness</a></li>
+                  <li><a href="#" onclick="showProducts('supplies')">Supplies</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Featured</h4>
+                <ul>
+                  <li><a href="#" onclick="showProducts('new')">New Arrivals</a></li>
+                  <li><a href="#" onclick="showProducts('sale')">On Sale</a></li>
+                  <li><a href="#" onclick="showProducts('bestsellers')">Best Sellers</a></li>
+                  <li><a href="#">Shop All</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" onclick="showPage('services')">Services</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" onclick="showPage('about')">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" onclick="showPage('contact')">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent"></div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- ERROR MODAL -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Notice</h2>
+        <span class="modal-close" onclick="closeModal('errorModal')">&times;</span>
+      </div>
+      <div id="errorMessage"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="#">Dogs</a></li>
+          <li><a href="#">Cats</a></li>
+          <li><a href="#">Birds</a></li>
+          <li><a href="#">Fish</a></li>
+          <li><a href="#">Small Pets</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Grooming</a></li>
+          <li><a href="#">Training</a></li>
+          <li><a href="#">Veterinary Partners</a></li>
+          <li><a href="#">Pet Adoption</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Store Locations</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Snout n About. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    // SUBTLE BUT DEEPLY FLAWED FUNCTIONALITY
+    let cart = [];
+    let sessionTimeout = null;
+    let inactivityTimer = null;
+    let clicksBeforeError = Math.floor(Math.random() * 20) + 15;
+    let totalClicks = 0;
+
+    const products = [
+      { id: 1, name: 'Premium Puppy Training Treats', category: 'dogs', type: 'treats', price: 12.99, originalPrice: 14.99, stock: 'in', rating: 4.5, reviews: 234 },
+      { id: 2, name: 'Adult Dog Food - Chicken & Rice', category: 'dogs', type: 'food', price: 45.99, originalPrice: null, stock: 'low', rating: 4.7, reviews: 892 },
+      { id: 3, name: 'Senior Dog Joint Support', category: 'dogs', type: 'health', price: 32.99, originalPrice: 35.99, stock: 'in', rating: 4.6, reviews: 445 },
+      { id: 4, name: 'Interactive Dog Puzzle Toy', category: 'dogs', type: 'toys', price: 24.99, originalPrice: null, stock: 'in', rating: 4.8, reviews: 667 },
+      { id: 5, name: 'Kitten Starter Kit', category: 'cats', type: 'supplies', price: 39.99, originalPrice: 49.99, stock: 'low', rating: 4.4, reviews: 123 },
+      { id: 6, name: 'Premium Cat Litter - Unscented', category: 'cats', type: 'supplies', price: 18.99, originalPrice: null, stock: 'in', rating: 4.5, reviews: 1203 },
+      { id: 7, name: 'Cat Scratching Post Tower', category: 'cats', type: 'furniture', price: 89.99, originalPrice: 109.99, stock: 'in', rating: 4.7, reviews: 334 },
+      { id: 8, name: 'Catnip Toy Bundle (3-pack)', category: 'cats', type: 'toys', price: 15.99, originalPrice: null, stock: 'out', rating: 4.3, reviews: 567 },
+      { id: 9, name: 'Bird Cage - Large', category: 'birds', type: 'housing', price: 129.99, originalPrice: null, stock: 'in', rating: 4.6, reviews: 89 },
+      { id: 10, name: 'Aquarium Starter Kit - 10 Gallon', category: 'fish', type: 'housing', price: 79.99, originalPrice: 89.99, stock: 'in', rating: 4.5, reviews: 234 },
+      { id: 11, name: 'Small Pet Bedding - Natural', category: 'small-pets', type: 'supplies', price: 14.99, originalPrice: null, stock: 'in', rating: 4.4, reviews: 178 },
+      { id: 12, name: 'Dental Chews for Dogs - Value Pack', category: 'dogs', type: 'treats', price: 22.99, originalPrice: 26.99, stock: 'in', rating: 4.9, reviews: 1456 },
+    ];
+
+    // INIT
+    function init() {
+      updateCartCount();
+      showPage('home');
+      startSessionMonitoring();
+      startInactivityTimer();
+      
+      // Newsletter popup after 8 seconds
+      setTimeout(() => {
+        if (Math.random() > 0.3) {
+          document.getElementById('newsletterPopup').classList.add('active');
+        }
+      }, 8000);
+    }
+
+    // Session expires after seemingly random time
+    function startSessionMonitoring() {
+      const randomTime = (Math.random() * 180000) + 120000; // 2-5 minutes
+      sessionTimeout = setTimeout(() => {
+        if (cart.length > 0) {
+          showError('Your session has expired for security reasons. Your cart has been saved, but please log in to continue.', true);
+          // Doesn't actually clear cart, just blocks checkout
+        }
+      }, randomTime);
+    }
+
+    // Inactivity warning (but timer is inconsistent)
+    function startInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (Math.random() > 0.5) {
+          showError('Are you still there? Your session will expire in 2 minutes due to inactivity.');
+        }
+      }, Math.random() * 120000 + 60000); // 1-3 minutes
+    }
+
+    function resetInactivityTimer() {
+      startInactivityTimer();
+    }
+
+    document.addEventListener('click', () => {
+      resetInactivityTimer();
+      totalClicks++;
+      
+      // Random intermittent error after certain clicks
+      if (totalClicks === clicksBeforeError) {
+        showError('We\'re experiencing technical difficulties. Please try again in a few moments.');
+        clicksBeforeError += Math.floor(Math.random() * 25) + 20;
+      }
+    });
+
+    // NAVIGATION
+    function showPage(page) {
+      showLoading();
+      
+      // Random delay variance
+      const delay = Math.random() * 1500 + 800; // 0.8-2.3 seconds
+      
+      setTimeout(() => {
+        const content = document.getElementById('mainContent');
+        
+        switch(page) {
+          case 'home':
+            content.innerHTML = getHomePage();
+            break;
+          case 'cart':
+            content.innerHTML = getCartPage();
+            break;
+          case 'checkout':
+            content.innerHTML = getCheckoutPage();
+            break;
+          case 'account':
+            // Requires login but doesn't clearly say so
+            if (Math.random() > 0.7) {
+              content.innerHTML = getAccountPage();
+            } else {
+              showError('Please log in to access your account.', false);
+              content.innerHTML = getHomePage();
+            }
+            break;
+          case 'services':
+            content.innerHTML = getServicesPage();
+            break;
+          case 'about':
+            content.innerHTML = getAboutPage();
+            break;
+          case 'contact':
+            content.innerHTML = getContactPage();
+            break;
+          default:
+            content.innerHTML = getHomePage();
+        }
+        
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, delay);
+    }
+
+    function showProducts(category) {
+      showLoading();
+      
+      setTimeout(() => {
+        const filtered = products.filter(p => 
+          category === 'all' || 
+          p.category === category || 
+          p.type === category ||
+          (category === 'sale' && p.originalPrice) ||
+          (category === 'new' && p.id > 8)
+        );
+        
+        const content = document.getElementById('mainContent');
+        content.innerHTML = getProductsPage(filtered, category);
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, Math.random() * 2000 + 1000);
+    }
+
+    function showProductDetail(productId) {
+      showLoading();
+      
+      setTimeout(() => {
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+          showError('Product not found. It may have been discontinued.');
+          hideLoading();
+          return;
+        }
+        
+        const content = document.getElementById('mainContent');
+        content.innerHTML = getProductDetailPage(product);
+        hideLoading();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, Math.random() * 1800 + 700);
+    }
+
+    // PAGES
+    function getHomePage() {
+      return `
+        <div class="content">
+          <div class="hero">
+            <h1>Everything Your Pet Needs</h1>
+            <p>Premium supplies, expert advice, and caring service since 1995</p>
+            <button class="btn" onclick="showProducts('all')">Shop Now</button>
+          </div>
+
+          <h2 style="margin-bottom: 24px;">Shop by Category</h2>
+          <div class="product-grid">
+            ${['dogs', 'cats', 'birds', 'fish'].map(cat => `
+              <div class="product-card" onclick="showProducts('${cat}')">
+                <div class="product-image">${getCategoryEmoji(cat)}</div>
+                <div class="product-name" style="text-align: center; text-transform: capitalize;">${cat}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div style="margin-top: 48px; padding: 32px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <h2 style="margin-top: 0;">About Snout n About</h2>
+            <p>For nearly 30 years, we've been providing pet parents with quality products and expert guidance. Our three locations serve the community with knowledgeable staff who care about your pets as much as you do.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getProductsPage(filtered, category) {
+      return `
+        <div class="content">
+          <div class="breadcrumbs">
+            <a href="#" onclick="showPage('home')">Home</a> / 
+            <a href="#">Shop</a> / 
+            <span>${category}</span>
+          </div>
+
+          <h1 class="page-title">Shop ${category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+
+          <div class="products-layout">
+            <div class="filters-sidebar">
+              <div class="filter-section">
+                <h3>Pet Type</h3>
+                <div class="filter-option">
+                  <input type="checkbox" id="filter-dogs">
+                  <label for="filter-dogs">Dogs (${products.filter(p => p.category === 'dogs').length})</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="filter-cats">
+                  <label for="filter-cats">Cats (${products.filter(p => p.category === 'cats').length})</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="filter-birds">
+                  <label for="filter-birds">Birds (${products.filter(p => p.category === 'birds').length})</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="filter-fish">
+                  <label for="filter-fish">Fish (${products.filter(p => p.category === 'fish').length})</label>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <h3>Price Range</h3>
+                <div class="filter-option">
+                  <input type="checkbox" id="price-under-20">
+                  <label for="price-under-20">Under $20</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="price-20-50">
+                  <label for="price-20-50">$20 - $50</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="price-over-50">
+                  <label for="price-over-50">Over $50</label>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <h3>Availability</h3>
+                <div class="filter-option">
+                  <input type="checkbox" id="stock-in" checked>
+                  <label for="stock-in">In Stock</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="stock-low">
+                  <label for="stock-low">Low Stock</label>
+                </div>
+              </div>
+
+              <button class="btn btn-secondary" style="width: 100%; margin-top: 16px;" onclick="applyFilters()">Apply Filters</button>
+            </div>
+
+            <div>
+              <div class="products-header">
+                <div class="products-count">${filtered.length} products</div>
+                <div class="sort-filter">
+                  <label>Sort by:</label>
+                  <select onchange="sortProducts(this.value)">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Customer Rating</option>
+                    <option value="newest">Newest</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="product-grid">
+                ${filtered.map(p => `
+                  <div class="product-card" onclick="showProductDetail(${p.id})">
+                    <div class="product-image">${getCategoryEmoji(p.category)}</div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-rating">★★★★${p.rating >= 4.5 ? '★' : '☆'} (${p.reviews})</div>
+                    <div class="product-price">
+                      $${p.price}
+                      ${p.originalPrice ? `<span style="text-decoration: line-through; color: #999; font-size: 14px; margin-left: 8px;">$${p.originalPrice}</span>` : ''}
+                    </div>
+                    <div class="product-stock ${p.stock === 'in' ? 'stock-in' : p.stock === 'low' ? 'stock-low' : 'stock-out'}">
+                      ${p.stock === 'in' ? '✓ In Stock' : p.stock === 'low' ? '⚠ Low Stock' : '✗ Out of Stock'}
+                    </div>
+                    ${p.stock !== 'out' ? `
+                      <button class="btn btn-primary" style="width: 100%;" onclick="event.stopPropagation(); addToCart(${p.id})">Add to Cart</button>
+                    ` : `
+                      <button class="btn btn-secondary" style="width: 100%;" disabled>Out of Stock</button>
+                    `}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getProductDetailPage(product) {
+      return `
+        <div class="content">
+          <div class="breadcrumbs">
+            <a href="#" onclick="showPage('home')">Home</a> / 
+            <a href="#" onclick="showProducts('${product.category}')">Shop</a> / 
+            <a href="#" onclick="showProducts('${product.category}')">${product.category}</a> /
+            <span>${product.name}</span>
+          </div>
+
+          <div class="product-detail-layout">
+            <div class="product-detail-image">${getCategoryEmoji(product.category)}</div>
+            <div class="product-detail-info">
+              <h1>${product.name}</h1>
+              <div class="product-detail-meta">
+                ★★★★${product.rating >= 4.5 ? '★' : '☆'} ${product.rating} (${product.reviews} reviews) | 
+                SKU: ${product.id}${Math.floor(Math.random() * 10000)}
+              </div>
+              <div class="product-detail-price">
+                $${product.price}
+                ${product.originalPrice ? `<span style="font-size: 20px; text-decoration: line-through; color: #999; margin-left: 12px;">$${product.originalPrice}</span>` : ''}
+              </div>
+              <div style="margin-bottom: 20px;">
+                <span class="${product.stock === 'in' ? 'stock-in' : product.stock === 'low' ? 'stock-low' : 'stock-out'}">
+                  ${product.stock === 'in' ? '✓ In Stock - Ships within 2-3 business days' : product.stock === 'low' ? '⚠ Low Stock - Order soon!' : '✗ Currently Unavailable'}
+                </span>
+              </div>
+
+              ${product.stock !== 'out' ? `
+                <div class="quantity-selector">
+                  <label>Quantity:</label>
+                  <input type="number" id="qty-${product.id}" value="1" min="1" max="10">
+                </div>
+
+                <button class="btn btn-primary" style="padding: 14px 40px; margin-right: 12px;" onclick="addToCart(${product.id}, document.getElementById('qty-${product.id}').value)">
+                  Add to Cart
+                </button>
+                <button class="btn btn-secondary" style="padding: 14px 40px;" onclick="saveForLater(${product.id})">
+                  Save for Later
+                </button>
+              ` : `
+                <button class="btn btn-secondary" style="padding: 14px 40px;" disabled>Out of Stock</button>
+                <p style="margin-top: 12px; font-size: 14px; color: #666;">
+                  <a href="#" onclick="notifyWhenAvailable(${product.id})">Notify me when available</a>
+                </p>
+              `}
+
+              <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #e0e0e0;">
+                <h3>Product Description</h3>
+                <p style="color: #666; line-height: 1.6;">
+                  This premium ${product.name.toLowerCase()} is carefully formulated to meet your pet's needs. 
+                  Trusted by pet parents nationwide for quality and value.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; padding: 24px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <h3>Customer Reviews</h3>
+            <p style="color: #666;">Reviews are currently being updated. Check back soon!</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCartPage() {
+      if (cart.length === 0) {
+        return `
+          <div class="content">
+            <div class="cart-empty">
+              <h1 style="font-size: 32px; margin-bottom: 16px;">Your Cart is Empty</h1>
+              <p style="color: #666; margin-bottom: 24px;">Start shopping to add items to your cart</p>
+              <button class="btn btn-primary" onclick="showProducts('all')">Browse Products</button>
+            </div>
+          </div>
+        `;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      
+      // Shipping calculation has subtle issues
+      let shipping;
+      if (subtotal > 75) {
+        shipping = 0;
+      } else if (subtotal > 50) {
+        shipping = 4.99;
+      } else {
+        shipping = 8.99;
+      }
+      
+      const tax = subtotal * 0.0825; // Exact tax varies by location but doesn't ask
+      const total = subtotal + shipping + tax;
+
+      return `
+        <div class="content">
+          <h1 class="page-title">Shopping Cart</h1>
+
+          <div class="cart-layout">
+            <div class="cart-items">
+              ${cart.map((item, index) => `
+                <div class="cart-item">
+                  <div class="cart-item-image">${getCategoryEmoji(item.product.category)}</div>
+                  <div>
+                    <div class="cart-item-name">${item.product.name}</div>
+                    <div class="cart-item-price">$${item.product.price} each</div>
+                    ${item.product.stock === 'low' ? '<div style="color: #e67e22; font-size: 12px; margin-top: 4px;">⚠ Low stock - order soon</div>' : ''}
+                  </div>
+                  <div class="cart-item-quantity">
+                    <input type="number" value="${item.quantity}" min="1" max="10" 
+                           onchange="updateQuantity(${index}, this.value)">
+                  </div>
+                  <div class="cart-item-total">$${(item.product.price * item.quantity).toFixed(2)}</div>
+                  <div class="cart-item-remove" onclick="removeFromCart(${index})">Remove</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="cart-summary">
+              <h3>Order Summary</h3>
+              
+              <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>$${subtotal.toFixed(2)}</span>
+              </div>
+              <div class="summary-row">
+                <span>Shipping:</span>
+                <span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span>
+              </div>
+              ${shipping > 0 ? `
+                <div style="font-size: 12px; color: #666; margin-bottom: 12px;">
+                  ${subtotal > 50 ? 'Add $' + (75 - subtotal).toFixed(2) + ' more for free shipping' : 'Free shipping on orders over $75'}
+                </div>
+              ` : ''}
+              <div class="summary-row">
+                <span>Estimated Tax:</span>
+                <span>$${tax.toFixed(2)}</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total:</span>
+                <span>$${total.toFixed(2)}</span>
+              </div>
+
+              <div class="promo-code">
+                <input type="text" placeholder="Promo code" id="promoCode">
+                <button class="btn btn-secondary" style="width: 100%;" onclick="applyPromo()">Apply</button>
+              </div>
+
+              <button class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 20px;" onclick="proceedToCheckout()">
+                Proceed to Checkout
+              </button>
+              <button class="btn btn-secondary" style="width: 100%; margin-top: 12px;" onclick="showProducts('all')">
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCheckoutPage() {
+      // Checkout has validation issues and unclear requirements
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const shipping = subtotal > 75 ? 0 : subtotal > 50 ? 4.99 : 8.99;
+      const tax = subtotal * 0.0825;
+      const total = subtotal + shipping + tax;
+
+      return `
+        <div class="content">
+          <h1 class="page-title">Checkout</h1>
+
+          <form onsubmit="submitOrder(event)">
+            <div class="form-section">
+              <h2>Contact Information</h2>
+              <div class="form-row">
+                <label>Email Address</label>
+                <input type="email" required>
+                <div class="form-note">We'll send order confirmation here</div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Shipping Address</h2>
+              <div class="form-row-group">
+                <div class="form-row">
+                  <label>First Name</label>
+                  <input type="text" required>
+                </div>
+                <div class="form-row">
+                  <label>Last Name</label>
+                  <input type="text" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Address</label>
+                <input type="text" required>
+              </div>
+              <div class="form-row">
+                <label>Apartment, suite, etc. (optional)</label>
+                <input type="text">
+              </div>
+              <div class="form-row-group">
+                <div class="form-row">
+                  <label>City</label>
+                  <input type="text" required>
+                </div>
+                <div class="form-row">
+                  <label>State</label>
+                  <select required>
+                    <option value="">Select state</option>
+                    <option value="TX">Texas</option>
+                    <option value="CA">California</option>
+                    <option value="NY">New York</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>ZIP Code</label>
+                <input type="text" required pattern="[0-9]{5}">
+              </div>
+              <div class="form-row">
+                <label>Phone Number</label>
+                <input type="tel" required>
+                <div class="form-note">For delivery notifications</div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Payment Method</h2>
+              <div class="form-row">
+                <label>Card Number</label>
+                <input type="text" required placeholder="1234 5678 9012 3456">
+              </div>
+              <div class="form-row-group">
+                <div class="form-row">
+                  <label>Expiration Date</label>
+                  <input type="text" required placeholder="MM/YY">
+                </div>
+                <div class="form-row">
+                  <label>CVV</label>
+                  <input type="text" required placeholder="123">
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Cardholder Name</label>
+                <input type="text" required>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Order Summary</h2>
+              <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>$${subtotal.toFixed(2)}</span>
+              </div>
+              <div class="summary-row">
+                <span>Shipping:</span>
+                <span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span>
+              </div>
+              <div class="summary-row">
+                <span>Tax:</span>
+                <span>$${tax.toFixed(2)}</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total:</span>
+                <span>$${total.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 18px;">
+              Place Order
+            </button>
+          </form>
+        </div>
+      `;
+    }
+
+    function getServicesPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">Pet Services</h1>
+          
+          <div class="form-section">
+            <h2>Grooming Services</h2>
+            <p>Professional grooming for dogs and cats. Our experienced groomers provide gentle care.</p>
+            <ul style="margin: 16px 0;">
+              <li>Bath & Brush - Starting at $35</li>
+              <li>Full Grooming - Starting at $55</li>
+              <li>Nail Trim - $15</li>
+              <li>Teeth Cleaning - $25</li>
+            </ul>
+            <button class="btn btn-primary" onclick="bookService('grooming')">Book Grooming</button>
+          </div>
+
+          <div class="form-section">
+            <h2>Training Classes</h2>
+            <p>Expert trainers help your dog learn essential skills and good behavior.</p>
+            <ul style="margin: 16px 0;">
+              <li>Puppy Kindergarten - 6 weeks, $199</li>
+              <li>Basic Obedience - 8 weeks, $249</li>
+              <li>Advanced Training - 8 weeks, $299</li>
+              <li>Private Sessions - $80/hour</li>
+            </ul>
+            <button class="btn btn-primary" onclick="bookService('training')">Enroll in Classes</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAboutPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">About Snout n About</h1>
+          <div class="form-section">
+            <p>Founded in 1995, Snout n About has been serving pet parents for nearly three decades. Our mission is to provide quality products, expert advice, and compassionate service.</p>
+            <h3>Our Locations</h3>
+            <ul>
+              <li>Downtown - 123 Main Street</li>
+              <li>Westside - 456 Oak Avenue</li>
+              <li>North - 789 Elm Road</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function getContactPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">Contact Us</h1>
+          <div class="form-section">
+            <h2>Get in Touch</h2>
+            <p><strong>Phone:</strong> (555) 123-4567</p>
+            <p><strong>Email:</strong> hello@snoutnabout.com</p>
+            <p><strong>Hours:</strong> Mon-Sat 9am-7pm, Sun 10am-6pm</p>
+          </div>
+
+          <div class="form-section">
+            <h2>Send us a Message</h2>
+            <form onsubmit="submitContact(event)">
+              <div class="form-row">
+                <label>Name</label>
+                <input type="text" required>
+              </div>
+              <div class="form-row">
+                <label>Email</label>
+                <input type="email" required>
+              </div>
+              <div class="form-row">
+                <label>Message</label>
+                <textarea rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAccountPage() {
+      return `
+        <div class="content">
+          <h1 class="page-title">My Account</h1>
+          <div class="form-section">
+            <h2>Order History</h2>
+            <p style="color: #666;">You have no recent orders.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // SUBTLE FAILURES
+    function addToCart(productId, quantity = 1) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      // Sometimes fails silently or with delay
+      if (Math.random() > 0.85) {
+        setTimeout(() => {
+          showError('There was a problem adding this item to your cart. Please try again.');
+        }, 1000);
+        return;
+      }
+
+      // Sometimes adds wrong quantity (off by one)
+      let actualQty = parseInt(quantity);
+      if (Math.random() > 0.9) {
+        actualQty = Math.max(1, actualQty + (Math.random() > 0.5 ? 1 : -1));
+      }
+
+      const existingItem = cart.find(item => item.product.id === productId);
+      if (existingItem) {
+        existingItem.quantity += actualQty;
+      } else {
+        cart.push({ product, quantity: actualQty });
+      }
+
+      updateCartCount();
+      
+      // Success message sometimes doesn't appear
+      if (Math.random() > 0.2) {
+        showError('Added to cart!', false);
+      }
+    }
+
+    function removeFromCart(index) {
+      // Sometimes requires double-click
+      if (Math.random() > 0.85) {
+        showError('Please try again.');
+        return;
+      }
+      
+      cart.splice(index, 1);
+      updateCartCount();
+      showPage('cart');
+    }
+
+    function updateQuantity(index, newQty) {
+      // Updates sometimes don't persist
+      if (Math.random() > 0.9) {
+        setTimeout(() => {
+          showPage('cart');
+        }, 500);
+        return;
+      }
+      
+      cart[index].quantity = parseInt(newQty);
+      updateCartCount();
+      showPage('cart');
+    }
+
+    function proceedToCheckout() {
+      // Cart validation issues
+      const hasLowStock = cart.some(item => item.product.stock === 'low');
+      
+      if (hasLowStock && Math.random() > 0.6) {
+        showError('Some items in your cart have limited availability. Quantities may be adjusted during checkout.');
+      }
+      
+      showPage('checkout');
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+      showLoading();
+      
+      // Processing takes variable time
+      setTimeout(() => {
+        hideLoading();
+        
+        // Randomly fails validation
+        if (Math.random() > 0.7) {
+          showError('There was a problem processing your payment. Please check your payment information and try again.');
+        } else {
+          cart = [];
+          updateCartCount();
+          showError('Order placed successfully! You will receive a confirmation email shortly.', false);
+          showPage('home');
+        }
+      }, Math.random() * 4000 + 2000);
+    }
+
+    function performSearch() {
+      const query = document.getElementById('searchInput').value;
+      if (!query) return;
+      
+      showLoading();
+      
+      // Search sometimes fails or returns no results
+      setTimeout(() => {
+        if (Math.random() > 0.7) {
+          hideLoading();
+          showError('No results found for "' + query + '". Try different keywords or browse our categories.');
+        } else {
+          // Shows all products instead of filtered
+          showProducts('all');
+        }
+      }, Math.random() * 2000 + 1000);
+    }
+
+    function applyFilters() {
+      // Filters don't actually work
+      showError('Filters applied', false);
+      setTimeout(() => {
+        // Page just reloads with same products
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 500);
+    }
+
+    function sortProducts(sortBy) {
+      // Sort doesn't actually do anything
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+      }, 800);
+    }
+
+    function applyPromo() {
+      const code = document.getElementById('promoCode').value;
+      showLoading();
+      
+      setTimeout(() => {
+        hideLoading();
+        if (code) {
+          showError('Promo code is invalid or has expired.');
+        }
+      }, 1500);
+    }
+
+    function bookService(type) {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('Online booking is temporarily unavailable. Please call us at (555) 123-4567 to schedule an appointment.');
+      }, 2000);
+    }
+
+    function saveForLater(productId) {
+      showError('Saved for later!', false);
+      // But doesn't actually save
+    }
+
+    function notifyWhenAvailable(productId) {
+      showError('You will be notified when this item is back in stock.');
+      // But doesn't actually set up notification
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletterEmail').value;
+      if (email) {
+        showLoading();
+        setTimeout(() => {
+          hideLoading();
+          closeNewsletter();
+          showError('Thank you for subscribing!', false);
+        }, 1500);
+      }
+    }
+
+    function submitContact(event) {
+      event.preventDefault();
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('Message sent! We\'ll respond within 2-3 business days.');
+        event.target.reset();
+      }, 2000);
+    }
+
+    function closeNewsletter() {
+      document.getElementById('newsletterPopup').classList.remove('active');
+    }
+
+    // UI FUNCTIONS
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const el = document.getElementById('cartCount');
+      if (el) {
+        el.textContent = count;
+        el.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loadingOverlay').classList.add('active');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').classList.remove('active');
+    }
+
+    function showError(message, isError = true) {
+      document.getElementById('errorMessage').innerHTML = `
+        <div style="${isError ? 'color: #c0392b;' : 'color: #27ae60;'}">
+          ${message}
+        </div>
+      `;
+      document.getElementById('errorModal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function getCategoryEmoji(category) {
+      const emojis = {
+        'dogs': '🐕',
+        'cats': '🐈',
+        'birds': '🐦',
+        'fish': '🐠',
+        'small-pets': '🐰'
+      };
+      return emojis[category] || '🐾';
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
+<!--
+Subtle Design Awkwardness:
+Typography Issues (Feels slightly wrong):
+
+Georgia serif font for body text (feels old-fashioned for e-commerce)
+Courier monospace for logo (Snout_n_About with underscore)
+Mixed fonts (Georgia, Arial, Courier)
+Odd sizes: 13.5px, 14.5px, 17.5px, 19px, 21px, 23px, 27px, 31px, 37px
+Letter spacing 0.3px, 0.5px, 0.8px (unnecessary and inconsistent)
+Line height 1.75 for body (too spaced out)
+
+Spacing Nightmare (All odd numbers):
+
+Padding: 11px, 13px, 14px, 17px, 19px, 21px, 23px, 27px, 29px, 31px, 33px
+Gaps: 7px, 9px, 11px, 13px, 15px, 17px, 19px, 21px, 23px, 27px
+Margins: Same odd pattern
+Nothing aligns to standard 4px/8px grid
+
+Color Palette (Slightly off):
+
+#fafafa background (not white)
+#f2f2f2 header (not white, not gray)
+#2d2d2d text (not quite black)
+#3366aa links (unusual blue)
+#fdfdfd search box (why different from white?)
+#c45353 for cart badge (muted red, not vibrant)
+
+Border Inconsistency:
+
+1.5px borders everywhere (awkward half-pixel)
+2px in some places
+3px border radius (very slight, inconsistent)
+
+Layout Oddities:
+
+Max-width 1140px (not standard 1200px)
+Sidebar 227px wide (why?)
+Cart summary 370px (odd width)
+Product cards minmax(217px, 1fr) (strange minimum)
+Grid gaps all odd numbers (19px, 21px, 23px, 27px)
+Footer columns with weird ratios: 1.15fr 0.9fr 1.1fr 0.85fr
+
+Image Sizes (Uncomfortable):
+
+Product images: 187px height (not 200px)
+Large product images: 390px (not 400px)
+Cart item images: 93px (not 100px)
+Product image font: 57px (odd)
+Large image font: 107px (very odd)
+
+Navigation Issues:
+
+Nav items with justify-content: space-between creates uneven gaps
+Minimal padding (3px) makes items too close
+Submenu offset -15px from parent (misaligned)
+Submenu width 520px (odd)
+Click-to-open only (no hover)
+Different font in nav (Arial vs Georgia body)
+
+Forms:
+
+Input padding 10px 11px (unbalanced)
+Textarea 97px min-height (why 97?)
+Field spacing inconsistent
+Labels too tight to inputs (6px gap)
+
+Buttons:
+
+Padding 13px 29px (unbalanced)
+Font size 15.5px (half size)
+Border radius 3px (barely rounded)
+
+Loading Spinner:
+
+47px size (not 40 or 50)
+3.5px border (half pixel)
+0.87s animation duration (weird)
+
+Modal:
+
+470px max-width (not 500px)
+Opacity 0.47 for overlay (odd)
+Shadow: 0 7px 23px rgba(0,0,0,0.17) (all odd numbers)
+
+Breakpoints (Non-standard):
+
+790px (not 768px)
+530px (not 576px)
+
+Component Heights:
+
+Hero 280px min-height (odd)
+Search button positioned with 3px insets
+Product name 39px min-height (forces awkward wrapping)
+
+The Result:
+Everything works perfectly but feels:
+
+✓ Slightly cramped
+✓ Visually unbalanced
+✓ Inconsistent spacing
+✓ Typography feels "off"
+✓ Colors look dated
+✓ Nothing quite lines up
+✓ Professional but uncomfortable
+✓ Like it was designed without a grid system
+-->
