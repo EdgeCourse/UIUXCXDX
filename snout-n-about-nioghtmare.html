@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snout n About - Pet Supply & Services</title>
+  <style>
+    /* THE WORST POSSIBLE UX - NIGHTMARE MODE */
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Comic Sans MS, cursive; /* Unprofessional font */
+      font-size: 11px; /* Even smaller */
+      color: #888; /* Low contrast */
+      background: #e8e8e8; /* Not white */
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      cursor: wait; /* Always waiting cursor */
+    }
+
+    /* Random animations everywhere */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    @keyframes flash {
+      0%, 100% { background: #ffffff; }
+      50% { background: #ffff00; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    a {
+      color: #0000ff; /* Old-school blue */
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    a:visited {
+      color: #800080; /* Visited purple */
+    }
+    a:hover {
+      color: #ff00ff; /* Garish pink */
+      text-decoration: blink; /* Old broken CSS */
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* Annoying popup banner */
+    .popup-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(45deg, #ff0000, #ff00ff, #0000ff);
+      color: #ffff00;
+      text-align: center;
+      padding: 15px;
+      z-index: 10000;
+      font-size: 16px;
+      font-weight: bold;
+      animation: flash 1s infinite;
+      cursor: pointer;
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 3px solid #ff0000;
+      padding: 5px 10px;
+      background: linear-gradient(to right, #ffcccc, #ccffcc, #ccccff);
+      position: sticky;
+      top: 60px; /* Below popup */
+      z-index: 100;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      color: #ff0000;
+      cursor: pointer;
+      animation: spin 3s infinite;
+      text-shadow: 3px 3px #0000ff;
+    }
+
+    .search-box {
+      font-size: 8px;
+    }
+
+    .search-box input[type="text"] {
+      width: 80px; /* Even smaller */
+      padding: 2px;
+      font-size: 8px;
+      border: 3px dashed #ff00ff;
+      background: #ffffcc;
+    }
+
+    .search-box button {
+      font-size: 8px;
+      padding: 2px 5px;
+      border: 2px solid #ff0000;
+      background: #00ff00;
+      color: #0000ff;
+      animation: shake 0.5s infinite;
+    }
+
+    .utility-nav {
+      font-size: 9px;
+    }
+
+    .cart-count {
+      background: #ff0000;
+      color: #ffff00;
+      border-radius: 10px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      animation: flash 0.5s infinite;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      text-align: center; /* Changed from left */
+      font-size: 10px;
+      letter-spacing: 3px;
+      background: #ffff00;
+      padding: 10px;
+    }
+
+    .nav a {
+      text-transform: uppercase;
+      margin: 0 5px;
+      display: inline-block;
+      padding: 8px 12px;
+      background: #ff69b4;
+      color: #ffffff;
+      border: 2px solid #000000;
+      border-radius: 15px;
+      animation: shake 2s infinite;
+    }
+
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Mega Menu appears on click but hard to click */
+    .mega-menu {
+      display: none;
+      position: fixed; /* Changed to fixed */
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff00ff;
+      border: 5px solid #ffff00;
+      padding: 20px;
+      width: 90%;
+      max-width: 800px;
+      font-size: 9px;
+      z-index: 999;
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      color: #ffffff;
+    }
+
+    .mega-menu.show {
+      display: block;
+      animation: shake 0.3s infinite;
+    }
+
+    .mega-column {
+      float: left;
+      width: 30%;
+      margin-right: 3%;
+      background: #ff1493;
+      padding: 10px;
+      border: 3px dotted #00ff00;
+    }
+
+    .mega-menu h4 {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #ffff00;
+      text-decoration: underline;
+    }
+
+    .mega-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mega-menu li {
+      margin-bottom: 8px;
+    }
+
+    .mega-menu a {
+      color: #00ff00 !important;
+    }
+
+    .brand-scroll {
+      max-height: 100px;
+      overflow-y: scroll;
+      border: 3px solid #ffff00;
+      padding: 5px;
+      font-size: 8px;
+      background: #000000;
+      color: #00ff00;
+    }
+
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    /* HERO */
+    .hero {
+      border-bottom: 5px double #ff0000;
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff6ec7, #7fedff, #ffff00);
+      position: relative;
+    }
+
+    .hero-carousel {
+      width: 100%;
+      height: 250px;
+      background: radial-gradient(circle, #ff00ff, #00ffff);
+      margin-bottom: 20px;
+      line-height: 250px;
+      font-size: 36px;
+      text-transform: uppercase;
+      color: #ffff00;
+      border: 10px solid #ff0000;
+      animation: flash 0.3s infinite;
+      text-shadow: 5px 5px #000000;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 48px;
+      font-weight: bold;
+      color: #ff0000;
+      text-shadow: 3px 3px #0000ff, 6px 6px #00ff00;
+      animation: shake 1s infinite;
+    }
+
+    .hero p {
+      margin: 20px 0;
+      font-size: 24px;
+      color: #0000ff;
+      font-style: italic;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      background: linear-gradient(45deg, #ff0000, #ff00ff);
+      color: #ffff00;
+      border-radius: 25px;
+      font-size: 18px;
+      border: 5px solid #00ff00;
+      cursor: pointer;
+      animation: shake 0.5s infinite;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-shadow: 2px 2px #000000;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #ff00ff, #00ff00);
+      animation: spin 0.5s infinite;
+    }
+
+    .btn-secondary {
+      background: #808080;
+      border: 5px dotted #000000;
+    }
+
+    .btn-fake {
+      padding: 15px 30px;
+      background: #999999;
+      color: #333333;
+      border-radius: 25px;
+      font-size: 18px;
+      border: 5px solid #666666;
+      cursor: not-allowed;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 5px solid #ff00ff;
+    }
+
+    .page-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: #ff0000;
+      text-decoration: underline;
+      text-align: center;
+      animation: shake 2s infinite;
+    }
+
+    .breadcrumbs {
+      font-size: 8px;
+      color: #cccccc;
+      margin-bottom: 10px;
+    }
+
+    /* PRODUCT GRID */
+    .products-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .filters {
+      width: 180px;
+      border: 3px dashed #ff00ff;
+      padding: 15px;
+      font-size: 10px;
+      flex-shrink: 0;
+      background: #ffffcc;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ff0000;
+    }
+
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 5px solid #ff00ff;
+      padding: 15px;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffccff, #ccffff);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .product-card:hover {
+      animation: shake 0.3s infinite;
+      border-color: #00ff00;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 120px;
+      background: radial-gradient(circle, #ff00ff, #00ffff);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      border: 3px solid #ff0000;
+      animation: spin 5s infinite;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #ff0000;
+    }
+
+    .product-price {
+      font-size: 20px;
+      color: #00ff00;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px #000000;
+    }
+
+    /* Annoying stickers on products */
+    .sale-sticker {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff0000;
+      color: #ffff00;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: bold;
+      transform: rotate(15deg);
+      border: 3px solid #000000;
+      animation: spin 2s infinite;
+    }
+
+    /* CART */
+    .cart-items {
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      border: 3px solid #ff00ff;
+      margin-bottom: 15px;
+      align-items: center;
+      background: linear-gradient(to right, #ffcccc, #ccffcc);
+    }
+
+    .cart-summary {
+      border: 5px double #ff0000;
+      padding: 20px;
+      background: #ffffcc;
+      max-width: 400px;
+      margin-left: auto;
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .cart-summary-row.total {
+      font-size: 24px;
+      font-weight: bold;
+      border-top: 3px solid #ff0000;
+      padding-top: 10px;
+      margin-top: 10px;
+      color: #ff0000;
+    }
+
+    /* FORMS */
+    .form-row {
+      margin-bottom: 15px;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ff0000;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 11px;
+      border: 3px solid #ff00ff;
+      font-family: Comic Sans MS, cursive;
+      background: #ffffcc;
+    }
+
+    .error-message {
+      background: #ff0000;
+      color: #ffff00;
+      padding: 15px;
+      margin-bottom: 15px;
+      border: 5px solid #000000;
+      font-size: 14px;
+      font-weight: bold;
+      animation: flash 0.5s infinite;
+    }
+
+    /* LOADING */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 60px;
+      font-size: 24px;
+      color: #ff0000;
+      background: #ffffff;
+      border: 10px solid #ff00ff;
+      animation: shake 0.5s infinite;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    /* Pop-up ads */
+    .popup-ad {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+      background-size: 400% 400%;
+      animation: gradient 2s ease infinite;
+      border: 10px solid #000000;
+      padding: 30px;
+      z-index: 9999;
+      max-width: 500px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .popup-ad.active {
+      display: block;
+      animation: shake 0.3s infinite;
+    }
+
+    .popup-ad h2 {
+      font-size: 32px;
+      color: #ffff00;
+      text-shadow: 3px 3px #000000;
+      margin: 0 0 20px 0;
+      animation: flash 0.5s infinite;
+    }
+
+    .popup-ad-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 12px;
+      color: #999999;
+      cursor: pointer;
+      background: #ffffff;
+      padding: 2px 5px;
+      border: 1px solid #cccccc;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 50px;
+      padding: 30px;
+      border-top: 5px double #ff00ff;
+      font-size: 8px;
+      text-align: center;
+      color: #666666;
+      background: linear-gradient(to right, #ffcccc, #ccffcc, #ccccff);
+    }
+
+    .footer a {
+      margin: 0 3px;
+      font-size: 8px;
+      color: #0000ff;
+    }
+
+    /* Scrolling marquee */
+    .marquee {
+      background: #ffff00;
+      color: #ff0000;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border-top: 3px solid #000000;
+      border-bottom: 3px solid #000000;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,0,255,0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #ff00ff, #00ffff);
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      border: 10px solid #ff0000;
+      animation: shake 0.5s infinite;
+    }
+
+    .modal-header h2 {
+      color: #ffff00;
+      text-shadow: 3px 3px #000000;
+      animation: flash 1s infinite;
+    }
+
+    .modal-close {
+      font-size: 36px;
+      cursor: pointer;
+      color: #ff0000;
+    }
+
+    /* UTILITIES */
+    .hidden {
+      display: none !important;
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Cursor trail effect */
+    .cursor-trail {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #ff00ff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade-out 1s forwards;
+      z-index: 99999;
+    }
+
+    @keyframes fade-out {
+      to { opacity: 0; transform: scale(2); }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 9px;
+      }
+      .hero h1 {
+        font-size: 24px;
+      }
+      .mega-menu {
+        width: 95%;
+        font-size: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOYING POPUP BANNER -->
+  <div class="popup-banner" onclick="this.style.display='none'">
+    🎉 CLICK HERE FOR 90% OFF!!! LIMITED TIME ONLY!!! 🎉 (click to close)
+  </div>
+
+  <!-- SCROLLING MARQUEE -->
+  <div class="marquee">
+    <span>🔥 FLASH SALE! 🔥 FREE SHIPPING ON ORDERS OVER $1000! 🔥 BUY NOW! 🔥 LIMITED STOCK! 🔥 ACT FAST! 🔥 LOWEST PRICES GUARANTEED! 🔥</span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo" onclick="showPage('home')">🐾 SNOUT N ABOUT 🐾</div>
+      
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search">
+        <button onclick="annoyingSearch()">GO!</button>
+      </div>
+      
+      <div class="utility-nav">
+        <a href="#" onclick="annoyingPopup()">STORES</a> |
+        <a href="#" onclick="annoyingPopup()">ACCOUNT</a> |
+        <a href="#" onclick="showPage('cart')">🛒 CART <span class="cart-count" id="cartCount">0</span></a>
+      </div>
+    </div>
+
+    <div class="nav">
+      <a href="#" onclick="showPage('home')">🏠 HOME</a>
+      <a href="#" onclick="toggleMegaMenu()">🛍️ SHOP</a>
+      <a href="#" onclick="annoyingPopup()">✂️ SERVICES</a>
+      <a href="#" onclick="annoyingPopup()">ℹ️ ABOUT</a>
+      <a href="#" onclick="annoyingPopup()">📞 CONTACT</a>
+    </div>
+  </div>
+
+  <!-- MEGA MENU (click to show/hide) -->
+  <div id="megaMenu" class="mega-menu">
+    <div style="text-align: right; margin-bottom: 10px;">
+      <span onclick="toggleMegaMenu()" style="cursor: pointer; font-size: 24px; color: #ffff00;">✖</span>
+    </div>
+    <div class="clearfix">
+      <div class="mega-column">
+        <h4>🐕 BY PET TYPE 🐕</h4>
+        <ul>
+          <li><a href="#" onclick="slowLoad('dogs')">DOGS!!!</a></li>
+          <li><a href="#" onclick="slowLoad('cats')">CATS!!!</a></li>
+          <li><a href="#" onclick="annoyingPopup()">BIRDS!!!</a></li>
+          <li><a href="#" onclick="annoyingPopup()">FISH!!!</a></li>
+          <li><a href="#" onclick="annoyingPopup()">HAMSTERS!!!</a></li>
+          <li><a href="#" onclick="annoyingPopup()">REPTILES!!!</a></li>
+        </ul>
+      </div>
+      
+      <div class="mega-column">
+        <h4>🎁 BY PRODUCT 🎁</h4>
+        <ul>
+          <li><a href="#" onclick="slowLoad('food')">FOOD</a></li>
+          <li><a href="#" onclick="slowLoad('treats')">TREATS</a></li>
+          <li><a href="#" onclick="annoyingPopup()">TOYS</a></li>
+          <li><a href="#" onclick="annoyingPopup()">HEALTH</a></li>
+          <li><a href="#" onclick="annoyingPopup()">GROOMING</a></li>
+        </ul>
+      </div>
+      
+      <div class="mega-column">
+        <h4>⭐ SPECIAL ⭐</h4>
+        <div class="brand-scroll">
+          <ul>
+            <li><a href="#" onclick="annoyingPopup()">Brand A</a></li>
+            <li><a href="#" onclick="annoyingPopup()">Brand B</a></li>
+            <li><a href="#" onclick="annoyingPopup()">Brand C</a></li>
+            <li><a href="#" onclick="annoyingPopup()">Brand D</a></li>
+            <li><a href="#" onclick="annoyingPopup()">Brand E</a></li>
+            <li><a href="#" onclick="annoyingPopup()">...50 more brands!!!</a></li>
+          </ul>
+        </div>
+        <br>
+        <ul>
+          <li><a href="#" onclick="slowLoad('sale')">🔥 SALE!!! 🔥</a></li>
+          <li><a href="#" onclick="annoyingPopup()">✨ NEW!!! ✨</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent"></div>
+
+  <!-- LOADING INDICATOR -->
+  <div id="loadingIndicator" class="loading">
+    <p>⏳ LOADING... PLEASE WAIT... ⏳</p>
+    <p style="font-size: 12px;">(This might take a while...)</p>
+  </div>
+
+  <!-- POPUP ADS -->
+  <div id="popupAd1" class="popup-ad">
+    <span class="popup-ad-close" onclick="closePopup('popupAd1')">close</span>
+    <h2 class="blink">🎉 SUBSCRIBE NOW!!! 🎉</h2>
+    <p style="font-size: 18px; color: #ffffff; font-weight: bold;">Get 10% off your first order!</p>
+    <input type="email" placeholder="Enter email" style="width: 100%; padding: 10px; margin: 10px 0; font-size: 14px; border: 3px solid #ff0000;">
+    <button class="btn" onclick="fakeSubscribe()">SUBSCRIBE NOW!!!</button>
+  </div>
+
+  <div id="popupAd2" class="popup-ad">
+    <span class="popup-ad-close" onclick="closePopup('popupAd2')">close</span>
+    <h2 class="blink">⚠️ IMPORTANT MESSAGE!!! ⚠️</h2>
+    <p style="font-size: 16px; color: #ffff00; font-weight: bold;">Your cart items are about to expire! Complete checkout now!</p>
+    <button class="btn" onclick="closePopup('popupAd2')">OK!!!</button>
+  </div>
+
+  <!-- ERROR MODAL -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: space-between;">
+        <h2>❌ ERROR ❌</h2>
+        <span class="modal-close" onclick="closeModal('errorModal')">✖</span>
+      </div>
+      <div id="errorMessage"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="marquee">
+    <span>⭐ BEST PRICES! ⭐ FAST SHIPPING! ⭐ SHOP NOW! ⭐ DON'T MISS OUT! ⭐ LIMITED TIME! ⭐</span>
+  </div>
+  
+  <div class="footer">
+    <p style="margin-bottom: 15px; font-size: 10px;">
+      <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Careers</a> | <a href="#">Stores</a> | 
+      <a href="#">Returns</a> | <a href="#">Shipping</a> | <a href="#">Privacy</a> | <a href="#">Terms</a> | 
+      <a href="#">FAQ</a> | <a href="#">Blog</a> | <a href="#">Press</a> | <a href="#">Investors</a> | 
+      <a href="#">Affiliates</a> | <a href="#">Sitemap</a> | <a href="#">Help</a>
+    </p>
+    <p>&copy; 1995-2024 Snout n About Inc. All Rights Reserved Worldwide.</p>
+    <p style="font-size: 6px; margin-top: 10px;">
+      Patent Pending. Trademarks and registered trademarks are property of their respective owners.
+      Prices and availability subject to change without notice. Not responsible for typographical errors.
+      See store for details. Limited quantities available. While supplies last.
+    </p>
+  </div>
+
+  <script>
+    // NIGHTMARE FUNCTIONALITY
+    let cart = [];
+    let popupCount = 0;
+    let clickCount = 0;
+    let cursorTrails = [];
+
+    const products = [
+      { id: 1, name: '!!!PREMIUM PUPPY FOOD!!!', category: 'dogs', price: 45.99, stock: 'MAYBE IN STOCK???', sale: true },
+      { id: 2, name: 'DOG FOOD - BEEF', category: 'dogs', price: 52.99, stock: 'CALL FOR AVAILABILITY', sale: false },
+      { id: 3, name: '**TRAINING TREATS**', category: 'dogs', price: 12.99, stock: '⚠️ LOW STOCK ⚠️', sale: true },
+      { id: 4, name: 'CAT FOOD!!! BEST PRICE!!!', category: 'cats', price: 38.99, stock: 'ORDER NOW!!!', sale: true },
+      { id: 5, name: 'CAT LITTER (20 LBS)', category: 'cats', price: 15.99, stock: 'SOLD OUT', sale: false },
+      { id: 6, name: '🔥 SALE ITEM 🔥', category: 'cats', price: 22.99, stock: 'HURRY!!!', sale: true },
+    ];
+
+    // Cursor trail effect
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.7) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = e.pageX + 'px';
+        trail.style.top = e.pageY + 'px';
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 1000);
+      }
+    });
+
+    // Random popup ads
+    setInterval(() => {
+      if (popupCount < 3 && Math.random() > 0.5) {
+        showPopup(Math.random() > 0.5 ? 'popupAd1' : 'popupAd2');
+        popupCount++;
+      }
+    }, 15000);
+
+    // Track clicks and do annoying things
+    document.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount % 10 === 0) {
+        annoyingPopup();
+      }
+    });
+
+    // INIT
+    function init() {
+      updateCartCount();
+      showPage('home');
+      startNightmareCarousel();
+    }
+
+    function startNightmareCarousel() {
+      const slides = [
+        "🔥 HOT DEALS!!! 🔥",
+        "⭐ BUY NOW!!! ⭐",
+        "💰 SAVE BIG!!! 💰",
+        "🎉 LIMITED TIME!!! 🎉",
+        "CLICK HERE!!! ->",
+        "DON'T MISS OUT!!!",
+      ];
+      let index = 0;
+      setInterval(() => {
+        const el = document.getElementById('heroCarousel');
+        if (el) {
+          index = (index + 1) % slides.length;
+          el.textContent = slides[index];
+        }
+      }, 500); // Way too fast
+    }
+
+    function toggleMegaMenu() {
+      const menu = document.getElementById('megaMenu');
+      menu.classList.toggle('show');
+    }
+
+    function showPage(page) {
+      const menu = document.getElementById('megaMenu');
+      menu.classList.remove('show');
+      
+      showLoading();
+      
+      setTimeout(() => {
+        const content = document.getElementById('mainContent');
+        
+        if (page === 'home') {
+          content.innerHTML = getHomePage();
+        } else if (page === 'cart') {
+          content.innerHTML = getCartPage();
+        }
+        
+        hideLoading();
+        window.scrollTo(0, 0);
+        
+        // Random popup after page load
+        if (Math.random() > 0.6) {
+          setTimeout(() => showPopup('popupAd1'), 2000);
+        }
+      }, Math.random() * 3000 + 2000);
+    }
+
+    function slowLoad(category) {
+      toggleMegaMenu();
+      
+      if (Math.random() > 0.5) {
+        showError('❌ ERROR 8472 ❌<br>Failed to load products!<br>Please try again or call 1-800-PET-HELP');
+        return;
+      }
+      
+      showLoading();
+      setTimeout(() => {
+        showProducts(category);
+        hideLoading();
+      }, Math.random() * 4000 + 3000);
+    }
+
+    function showProducts(category) {
+      const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+      const content = document.getElementById('mainContent');
+      
+      content.innerHTML = `
+        <div class="content">
+          <h1 class="page-title">🛍️ ${category.toUpperCase()} PRODUCTS!!! 🛍️</h1>
+          
+          <div class="product-grid">
+            ${filtered.map(p => `
+              <div class="product-card" onclick="nightmareProductClick(${p.id})">
+                ${p.sale ? '<div class="sale-sticker">SALE!</div>' : ''}
+                <div class="product-image">${getCategoryEmoji(p.category)}</div>
+                <div class="product-name">${p.name}</div>
+                <div class="product-price">$${p.price}</div>
+                <div style="font-size: 10px; color: #ff0000; font-weight: bold;">${p.stock}</div>
+                <button class="btn" style="width: 100%; margin-top: 10px; font-size: 12px;" 
+                        onclick="event.stopPropagation(); nightmareAddToCart(${p.id})">
+                  🛒 BUY NOW!!!
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function getHomePage() {
+      return `
+        <div class="hero">
+          <div class="hero-carousel" id="heroCarousel">🔥 HOT DEALS!!! 🔥</div>
+          <h1 class="blink">🐾 WELCOME TO SNOUT N ABOUT!!! 🐾</h1>
+          <p>YOUR #1 PET SUPPLY STORE SINCE 1995!!!</p>
+          <button class="btn" onclick="slowLoad('all')">🛍️ SHOP NOW!!! 🛍️</button>
+        </div>
+
+        <div class="content">
+          <h2 style="text-align: center; font-size: 32px; color: #ff0000; margin-bottom: 30px;">
+            ⭐ FEATURED CATEGORIES!!! ⭐
+          </h2>
+          
+          <div class="product-grid">
+            <div class="product-card" onclick="slowLoad('dogs')">
+              <div class="product-image">🐕</div>
+              <div class="product-name">DOGS!!!</div>
+              <p>EVERYTHING FOR YOUR BEST FRIEND!!!</p>
+            </div>
+            <div class="product-card" onclick="slowLoad('cats')">
+              <div class="product-image">🐈</div>
+              <div class="product-name">CATS!!!</div>
+              <p>PREMIUM FELINE PRODUCTS!!!</p>
+            </div>
+            <div class="product-card" onclick="annoyingPopup()">
+              <div class="product-image">🐦</div>
+              <div class="product-name">BIRDS!!!</div>
+              <p>CAGES & MORE!!!</p>
+            </div>
+            <div class="product-card" onclick="annoyingPopup()">
+              <div class="product-image">🐠</div>
+              <div class="product-name">FISH!!!</div>
+              <p>AQUARIUM SUPPLIES!!!</p>
+            </div>
+          </div>
+          
+          <div style="margin-top: 40px; padding: 30px; background: linear-gradient(45deg, #ffcccc, #ccffcc); border: 5px solid #ff00ff;">
+            <h2 style="color: #ff0000; font-size: 28px; text-align: center;">📢 ABOUT US!!! 📢</h2>
+            <p style="font-size: 14px; line-height: 1.8;">
+              WE ARE A FAMILY OWNED PET SUPPLY STORE!!! SERVING THE COMMUNITY SINCE 1995!!! 
+              WE OFFER THE WIDEST SELECTION!!! LOWEST PRICES GUARANTEED!!! FREE SHIPPING ON ORDERS OVER $1000!!!
+              SHOP WITH CONFIDENCE!!! 100% SATISFACTION GUARANTEED OR YOUR MONEY BACK!!!* 
+              (*some restrictions apply, see store for details, offer not valid with any other offers)
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCartPage() {
+      if (cart.length === 0) {
+        return `
+          <div class="content" style="text-align: center; padding: 60px 20px;">
+            <h1 class="page-title">🛒 YOUR CART IS EMPTY!!! 🛒</h1>
+            <p style="font-size: 18px; margin: 30px 0;">WHY NOT START SHOPPING???</p>
+            <button class="btn" onclick="slowLoad('all')">🛍️ SHOP NOW!!! 🛍️</button>
+          </div>
+        `;
+      }
+      
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const randomFee = Math.random() * 10;
+      const shipping = 9.99;
+      const handling = 4.99;
+      const tax = subtotal * 0.08;
+      const total = subtotal + randomFee + shipping + handling + tax;
+      
+      return `
+        <div class="content">
+          <h1 class="page-title">🛒 YOUR SHOPPING CART!!! 🛒</h1>
+          
+          <div style="background: #ffff00; padding: 15px; margin-bottom: 20px; border: 3px solid #ff0000;">
+            <p style="font-size: 14px; color: #ff0000; font-weight: bold; margin: 0;">
+              ⚠️ PRICES MAY CHANGE AT ANY TIME!!! ⚠️
+            </p>
+          </div>
+          
+          <div class="cart-items">
+            ${cart.map((item, index) => `
+              <div class="cart-item">
+                <div style="width: 80px; height: 80px; background: radial-gradient(circle, #ff00ff, #00ffff); display: flex; align-items: center; justify-content: center; font-size: 40px; border: 3px solid #ff0000;">
+                  ${getCategoryEmoji(item.product.category)}
+                </div>
+                <div style="flex: 1;">
+                  <div style="font-size: 16px; font-weight: bold; color: #ff0000;">${item.product.name}</div>
+                  <div style="font-size: 12px; color: #666;">$${item.product.price} each</div>
+                </div>
+                <div>
+                  <label style="font-size: 10px;">QTY:</label>
+                  <input type="number" value="${item.quantity}" min="1" max="10" 
+                         style="width: 60px; border: 3px solid #ff00ff; background: #ffffcc;"
+                         onchange="nightmareUpdateQuantity(${index}, this.value)">
+                </div>
+                <div style="font-size: 20px; font-weight: bold; color: #00ff00;">
+                  $${(item.product.price * item.quantity).toFixed(2)}
+                </div>
+                <button onclick="nightmareRemove(${index})" 
+                        style="background: #ff0000; color: #ffff00; border: 3px solid #000000; padding: 10px; cursor: pointer; font-weight: bold;">
+                  ❌ REMOVE
+                </button>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="cart-summary">
+            <div class="cart-summary-row">
+              <span>Subtotal:</span>
+              <span>$${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Shipping:</span>
+              <span>$${shipping.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Handling Fee:</span>
+              <span>$${handling.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Mystery Fee:</span>
+              <span>$${randomFee.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Tax:</span>
+              <span>$${tax.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary-row total">
+              <span>TOTAL:</span>
+              <span class="blink">$${total.toFixed(2)}</span>
+            </div>
+            
+            <p style="font-size: 8px; color: #999; margin-top: 10px;">
+              *Prices subject to change. Additional fees may apply. See checkout for final total.
+            </p>
+            
+            <button class="btn" style="width: 100%; padding: 20px; font-size: 18px; margin-top: 20px;" 
+                    onclick="nightmareCheckout()">
+              💳 CHECKOUT NOW!!! 💳
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // NIGHTMARE FUNCTIONS
+    function nightmareAddToCart(productId) {
+      if (Math.random() > 0.4) {
+        const errors = [
+          '❌ ERROR 404!!! ❌<br>ITEM NOT FOUND!!!',
+          '❌ SERVER ERROR!!! ❌<br>TRY AGAIN LATER!!!',
+          '❌ OUT OF STOCK!!! ❌<br>SORRY!!!',
+          '❌ CART FULL!!! ❌<br>REMOVE ITEMS FIRST!!!',
+          '❌ PRICE CHANGED!!! ❌<br>PLEASE REFRESH!!!',
+        ];
+        showError(errors[Math.floor(Math.random() * errors.length)]);
+        return;
+      }
+      
+      const product = products.find(p => p.id === productId);
+      const wrongQty = Math.floor(Math.random() * 3) + 1;
+      
+      cart.push({ product, quantity: wrongQty });
+      updateCartCount();
+      
+      showError(`✅ ADDED ${wrongQty} ITEM(S) TO CART!!! ✅<br>(Quantity may have been adjusted)`);
+      
+      setTimeout(() => showPopup('popupAd2'), 1000);
+    }
+
+    function nightmareRemove(index) {
+      if (Math.random() > 0.6) {
+        showError('❌ FAILED TO REMOVE!!! ❌<br>TRY AGAIN!!!');
+        return;
+      }
+      cart.splice(index, 1);
+      updateCartCount();
+      showPage('cart');
+    }
+
+    function nightmareUpdateQuantity(index, qty) {
+      showError('❌ QUANTITY UPDATE FAILED!!! ❌<br>PLEASE REMOVE AND RE-ADD ITEM!!!');
+    }
+
+    function nightmareCheckout() {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('❌ CHECKOUT UNAVAILABLE!!! ❌<br><br>PLEASE CALL 1-800-PET-HELP TO COMPLETE YOUR ORDER!!!<br><br>WAIT TIME: 45-60 MINUTES!!!');
+      }, 5000);
+    }
+
+    function nightmareProductClick(id) {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('❌ PRODUCT DETAILS UNAVAILABLE!!! ❌<br>PLEASE CALL FOR MORE INFORMATION!!!');
+      }, 3000);
+    }
+
+    function annoyingSearch() {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showError('❌ SEARCH TEMPORARILY DISABLED!!! ❌<br>BROWSE OUR CATEGORIES INSTEAD!!!');
+        showPopup('popupAd1');
+      }, 4000);
+    }
+
+    function annoyingPopup() {
+      const messages = [
+        '❌ PAGE NOT FOUND!!! ❌<br>ERROR 404!!!',
+        '❌ ACCESS DENIED!!! ❌<br>PLEASE LOGIN!!!',
+        '⚠️ COMING SOON!!! ⚠️<br>CHECK BACK LATER!!!',
+        '⚠️ UNDER CONSTRUCTION!!! ⚠️',
+        '❌ TEMPORARILY UNAVAILABLE!!! ❌',
+      ];
+      showError(messages[Math.floor(Math.random() * messages.length)]);
+    }
+
+    function fakeSubscribe() {
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        closePopup('popupAd1');
+        showError('✅ SUBSCRIBED!!! ✅<br>CHECK YOUR EMAIL FOR CONFIRMATION!!!<br>(Email may take 24-48 hours to arrive)');
+      }, 3000);
+    }
+
+    // UI FUNCTIONS
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const el = document.getElementById('cartCount');
+      if (el) {
+        el.textContent = count;
+        el.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loadingIndicator').classList.add('active');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingIndicator').classList.remove('active');
+    }
+
+    function showError(message) {
+      document.getElementById('errorMessage').innerHTML = `
+        <div class="error-message" style="font-size: 16px; text-align: center;">
+          ${message}
+        </div>
+      `;
+      document.getElementById('errorModal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function showPopup(id) {
+      document.getElementById(id).classList.add('active');
+    }
+
+    function closePopup(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function getCategoryEmoji(category) {
+      return category === 'dogs' ? '🐕' : '🐈';
+    }
+
+    window.onload = init;
+
+    // Prevent right click
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      showError('❌ RIGHT CLICK DISABLED!!! ❌');
+    });
+
+    // Prevent text selection randomly
+    document.addEventListener('selectstart', (e) => {
+      if (Math.random() > 0.7) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
